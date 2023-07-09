@@ -3,7 +3,7 @@ const taskListService = require("../services/taskListService");
 module.exports = {
   async newTaskList(req, res) {
     const { name } = req.body;
-    const userId = req.params.id;
+    const userId = req.user.id;
 
     try {
       const taskList = await taskListService.createTaskList({ name, userId });
@@ -19,7 +19,7 @@ module.exports = {
   },
 
   async getTaskLists(req, res) {
-    const userId = req.params.id;
+    const userId = req.user.id;
 
     try {
       const taskLists = await taskListService.getLists({
@@ -42,7 +42,7 @@ module.exports = {
 
   async searchTaskLists(req, res) {
     const name = req.query.name;
-    const userId = req.params.id;
+    const userId = req.user.id;
 
     try {
       const taskLists = await taskListService.getTaskListByName({
@@ -80,10 +80,9 @@ module.exports = {
 
   deleteTaskList: async (req, res) => {
     const { id } = req.body;
-    const userId = req.params.id;
 
     try {
-      await taskListService.removeTaskList({ id, userId });
+      await taskListService.removeTaskList({ id });
 
       if (!id) {
         throw new Error();

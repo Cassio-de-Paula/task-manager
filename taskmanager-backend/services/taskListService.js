@@ -39,11 +39,10 @@ module.exports = {
     return updatedTaskLists[0];
   },
 
-  removeTaskList: async ({ id, userId }) => {
+  removeTaskList: async ({ id }) => {
     await TaskList.destroy({
       where: {
         id,
-        userId,
       },
     });
   },

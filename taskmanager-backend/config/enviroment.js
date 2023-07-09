@@ -1,3 +1,3 @@
 const env = require("env-var");
 
-module.exports = DATABASE_URL = env.get("DATABASE_URL").required().asString();
+module.exports = JWT_KEY = env.get("JWT_KEY").required().asString();

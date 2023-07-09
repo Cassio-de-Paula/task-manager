@@ -89,10 +89,8 @@ module.exports = {
 
   deleteTask: async (req, res) => {
     const { id } = req.body;
-    const taskListId = req.params.id;
-
     try {
-      await taskService.removeTask({ id, taskListId });
+      await taskService.removeTask({ id });
 
       if (!id) {
         throw new Error();

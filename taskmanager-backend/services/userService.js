@@ -12,11 +12,10 @@ module.exports = {
     return user;
   },
 
-  findUser: async ({ email, password }) => {
+  findUser: async (email) => {
     const user = await User.findOne({
       where: {
         email: email,
-        password: password,
       },
     });
     return user;
@@ -37,10 +36,9 @@ module.exports = {
     const [affectedRows, updatedPassword] = await User.update(
       { password },
       {
-        where: {
-          id,
-        },
+        where: { id },
         returning: true,
+        individualHooks: true,
       }
     );
 
