@@ -15,13 +15,13 @@ module.exports = {
   findUser: async (email) => {
     const user = await User.findOne({
       where: {
-        email: email,
+        email,
       },
     });
     return user;
   },
 
-  updateUsername: async (id, { userName }) => {
+  updateUsername: async (id, userName) => {
     const [affectedRows, updatedUsers] = await User.update(
       { userName },
       {
@@ -32,7 +32,7 @@ module.exports = {
     return updatedUsers[0];
   },
 
-  updatePassword: async (id, { password }) => {
+  updatePassword: async (id, password) => {
     const [affectedRows, updatedPassword] = await User.update(
       { password },
       {

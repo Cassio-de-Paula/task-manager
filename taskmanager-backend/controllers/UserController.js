@@ -20,15 +20,10 @@ module.exports = {
   },
 
   login: async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password } = req.body;
 
     try {
-      const user = await userService.findUser({
-        email,
-      });
-
-      console.log(user);
+      const user = await userService.findUser(email);
 
       if (!user) {
         throw new Error({ message: "Email não cadastrado!" });
@@ -50,7 +45,7 @@ module.exports = {
 
       return res.json({ authenticated: true, ...payLoad, token });
     } catch (error) {
-      return res.status(404).json({ message: error.message });
+      return res.status(401).json({ message: error.message });
     }
   },
 
@@ -59,13 +54,13 @@ module.exports = {
     const { userName } = req.body;
 
     try {
-      const user = await userService.updateUsername(id, {
-        userName,
-      });
+      const user = await userService.updateUsername(id, userName);
 
       if (user === null) {
         throw new Error();
       }
+
+      console.log(user);
 
       return res.status(200).json(user);
     } catch (error) {

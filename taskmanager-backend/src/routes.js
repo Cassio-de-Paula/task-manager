@@ -10,7 +10,7 @@ const { ensureAuth } = require("../middlewares/auth");
 routes.post("/register", UserController.register);
 routes.post("/login", UserController.login);
 routes.put("/myAccount", ensureAuth, UserController.updateUser);
-routes.put("/myAccount", ensureAuth, UserController.passwordUpdate);
+routes.put("/myAccount/password", ensureAuth, UserController.passwordUpdate);
 
 // Rotas de listas de tarefas
 routes.post("/newList", ensureAuth, TaskListController.newTaskList);

@@ -18,6 +18,8 @@ module.exports = {
           .status(401)
           .json({ message: "Não autorizado: token inválido." });
 
+      console.log(decoded);
+
       const user = await userService.findUser(decoded.email);
       req.user = user;
       next();
