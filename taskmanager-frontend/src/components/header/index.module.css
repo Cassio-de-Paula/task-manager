@@ -1,0 +1,35 @@
+
+.header {
+    width: 100vw;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchInput {
+    border: none;
+    width: 400px;
+    height: 30px;
+    border-radius: 20px;
+    &:focus {
+        outline: 0;
+    }
+}
+
+.userProfile {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+a:hover {
+    transition: 0.3s;
+    scale: 0.9;
+}
+
+a:link {
+    text-decoration: none;
+}
