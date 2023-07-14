@@ -44,7 +44,7 @@ module.exports = {
     return updatedTasks[0];
   },
 
-  removeTask: async ({ id }) => {
+  removeTask: async (id) => {
     await Task.destroy({
       where: {
         id,

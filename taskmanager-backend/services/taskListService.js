@@ -2,8 +2,8 @@ const TaskList = require("../models/TaskList");
 const { Op } = require("sequelize");
 
 module.exports = {
-  createTaskList: async ({ name, userId }) => {
-    const taskList = await TaskList.create({ name, userId });
+  createTaskList: async ({ name, color, userId }) => {
+    const taskList = await TaskList.create({ name, color, userId });
     return taskList;
   },
 
@@ -30,11 +30,15 @@ module.exports = {
     return taskList;
   },
 
-  updateTaskList: async (id, name) => {
-    const [affectedRows, updatedTaskLists] = await TaskList.update(name, {
-      where: { id },
-      returning: true,
-    });
+  updateTaskList: async (id, name, color) => {
+    const [affectedRows, updatedTaskLists] = await TaskList.update(
+      name,
+      color,
+      {
+        where: { id },
+        returning: true,
+      }
+    );
 
     return updatedTaskLists[0];
   },

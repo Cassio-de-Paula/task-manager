@@ -2,11 +2,15 @@ const taskListService = require("../services/taskListService");
 
 module.exports = {
   async newTaskList(req, res) {
-    const { name } = req.body;
+    const { name, color } = req.body;
     const userId = req.user.id;
 
     try {
-      const taskList = await taskListService.createTaskList({ name, userId });
+      const taskList = await taskListService.createTaskList({
+        name,
+        color,
+        userId,
+      });
 
       if (!userId) {
         throw new Error();
@@ -65,11 +69,12 @@ module.exports = {
   },
 
   saveTaskList: async (req, res) => {
-    const { id, name } = req.body;
+    const { id, name, color } = req.body;
 
     try {
       const taskList = await taskListService.updateTaskList(id, {
         name,
+        color,
       });
 
       return res.status(200).json(taskList);
