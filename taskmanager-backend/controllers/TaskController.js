@@ -35,10 +35,6 @@ module.exports = {
         throw new Error();
       }
 
-      if (tasks.length === 0) {
-        throw new Error("Você não possui tarefas nesta lista");
-      }
-
       return res.status(200).json(tasks);
     } catch (error) {
       return res.status(400).json({ message: error.message });

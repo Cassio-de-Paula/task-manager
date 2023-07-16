@@ -14,10 +14,10 @@ routes.put("/myAccount/password", ensureAuth, UserController.passwordUpdate);
 
 // Rotas de listas de tarefas
 routes.post("/home", ensureAuth, TaskListController.newTaskList);
-routes.get("/taskLists/search", ensureAuth, TaskListController.searchTaskLists);
-routes.get("/taskLists", ensureAuth, TaskListController.getTaskLists);
-routes.put("/taskLists", ensureAuth, TaskListController.saveTaskList);
-routes.delete("/taskLists", ensureAuth, TaskListController.deleteTaskList);
+routes.get("/home/search", ensureAuth, TaskListController.searchTaskLists);
+routes.get("/home", ensureAuth, TaskListController.getTaskLists);
+routes.put("/home", ensureAuth, TaskListController.saveTaskList);
+routes.delete("/home", ensureAuth, TaskListController.deleteTaskList);
 
 //Rotas de tarefas
 routes.post("/taskList/newTask", ensureAuth, TaskController.newTask);

@@ -34,10 +34,6 @@ module.exports = {
         throw new Error();
       }
 
-      if (!taskLists) {
-        throw new Error("Você não possui listas de tarefas");
-      }
-
       return res.status(200).json(taskLists);
     } catch (error) {
       return res.status(400).json({ message: error.message });

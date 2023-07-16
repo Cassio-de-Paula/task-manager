@@ -5,7 +5,7 @@ const Task = sequelize.define("tasks", {
   name: DataTypes.STRING,
   deadline: DataTypes.DATE,
   done: DataTypes.BOOLEAN,
-  urgency: DataTypes.STRING,
+  urgency: DataTypes.INTEGER,
   taskListId: DataTypes.STRING,
 });
 

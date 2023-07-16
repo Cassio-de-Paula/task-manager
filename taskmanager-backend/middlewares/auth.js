@@ -4,6 +4,7 @@ const userService = require("../services/userService");
 module.exports = {
   ensureAuth(req, res, next) {
     const authorizationHeader = req.headers.authorization;
+    console.log(authorizationHeader);
 
     if (!authorizationHeader)
       return res

@@ -23,7 +23,7 @@ module.exports = {
         defaultValue: false,
       },
       urgency: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
       },
       taskListId: {
         type: DataTypes.INTEGER,
