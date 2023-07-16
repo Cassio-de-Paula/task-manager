@@ -3,10 +3,11 @@ import LogoName from '../src/components/logoName'
 import { useState } from 'react'
 import authService from '../src/services/authService'
 import { useNavigate } from 'react-router-dom'
+import ErrorMessage from '../src/components/errorMessage'
 
 export default function LoginScreen () {
     const router = useNavigate()
-    const [errorInput, setErrorInput] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
     const handleLogin = async (ev) => {
         ev.preventDefault()
@@ -25,7 +26,7 @@ export default function LoginScreen () {
             router('/home',{replace: true})
 
         } else {
-            setErrorInput(true)
+            setErrorMessage('Usuário inválido!')
         }
     }
 
@@ -45,8 +46,8 @@ export default function LoginScreen () {
             </form>
         </div>
         {
-            errorInput ? (
-                <p className={styles.errorMessage}>Usuário ou senha incorretos!</p>
+            errorMessage ? (
+                <ErrorMessage message={errorMessage}/>
             ) : (
                 <>
                 </>

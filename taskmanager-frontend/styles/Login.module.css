@@ -28,6 +28,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: "Roboto", sans-serif;
 }
 
 .label {
@@ -40,7 +41,7 @@
     align-items: center;
 }
 
-.input, .inputError {
+.input {
     height: 30px;
     border-radius: 10px;
     width: 65%;
@@ -50,39 +51,6 @@
     &:focus {
         outline: 0;
     }
-}
-
-.inputError {
-    background-color: rgba(255, 0, 0, 0.374);
-    width: 65%;
-}
-
-.errorMessage {
-    text-align: center;
-    font-weight: bold;
-    width: 400px;
-    height: fit-content;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px red;
-    border-style: dashed solid;
-    background-color: rgba(255, 0, 0, 0.374);
-    color: white;
-    animation: popout .5s ease;
-    -webkit-animation: popout .5s ease;
-    padding: 5px;
-
-}
-
-@keyframes popout {
-    from{transform:scale(0)}
-    80%{transform:scale(1.2)}
-    to{transform:scale(1)}
-}
-@-webkit-keyframes popout {
-    from{-webkit-transform:scale(0)}
-    80%{-webkit-transform:scale(1.2)}
-    to{-webkit-transform:scale(1)}
 }
 
 button {

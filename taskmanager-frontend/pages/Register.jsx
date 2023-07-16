@@ -1,13 +1,13 @@
 import styles from '../styles/Register.module.css'
 import authService from '../src/services/authService'
 import LogoName from '../src/components/logoName'
+import ErrorMessage from '../src/components/errorMessage'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function RegisterScreen () {
     const router = useNavigate()
-    const [errorInput, setErrorInput] = useState(false)
-    
+    const [errorMessage, setErrorMessage] = useState('')
 
     const handleRegister = async (ev) => {
         ev.preventDefault()
@@ -19,13 +19,15 @@ export default function RegisterScreen () {
         const password = formData.get('password').toString()
         const confirmPassword = formData.get('confirmPassword').toString()
 
+        if(!userName || !email || !birth || !password || !confirmPassword) {
+            setErrorMessage('Oops, preencha todos os campos para criar sua conta!')
+            return
+        }
+
         const params = {userName, email, birth, password}
 
-        console.log(params)
-
         if(password !== confirmPassword) {
-            setErrorInput(true)
-
+            setErrorMessage('Sua senha e confirmação de senha estão diferentes!')
             return
         }
 
@@ -52,20 +54,18 @@ export default function RegisterScreen () {
                     <input type="date" id='birthday' name='birthday' className={styles.input}/>
                 </label>
                     <label htmlFor="password" className={styles.label}> <p>Senha</p>
-                    <input type="password" id='password' name='password' placeholder='Digite sua senha' className={errorInput ? styles.inputError : styles.input}/>
+                    <input type="password" id='password' name='password' placeholder='Digite sua senha' className={styles.input}/>
                 </label>
                 <label htmlFor="confirmPassowrd" className={styles.label}> <p>Confirmaçao da senha</p>
-                    <input type="password" id='confirmPassword' name='confirmPassword' placeholder='Confirme sua senha' className={errorInput ? styles.inputError : styles.input}/>
+                    <input type="password" id='confirmPassword' name='confirmPassword' placeholder='Confirme sua senha' className={styles.input}/>
                 </label>
                 
                 <button type='submit' className={styles.btn}>CADASTRAR!</button>
             </form>
         </div>
         {
-            errorInput ? (
-                <div className={styles.errorMessage}>
-                    <p>Oops... Parece que sua senha e a confirmação estão diferentes!</p>
-                </div>
+            errorMessage ? (
+                <ErrorMessage message={errorMessage}/>
             ):(
                 <>
                 </>

@@ -1,13 +1,15 @@
-import Header from '../src/components/header'
 import styles from '../styles/Home.module.css'
+import Header from '../src/components/header'
+import { Outlet } from 'react-router-dom'
 
 export default function Home () {
     return (
         <>
+        <div className={styles.mainContainer}>
+            <Header/>
         <div className={styles.homeContainer}>
-        <Header/>
-        <section className={styles.taskListsSection}>
-        </section>
+            <Outlet/>
+        </div>
         </div>
         </>
     )

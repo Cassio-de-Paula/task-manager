@@ -8,31 +8,6 @@ import taskService from '../../services/taskService'
 export default function Header () {
     const [showOptions, setShowOptions] = useState(false)
 
-    const handleProfile = () => {
-        if(showOptions) {
-            setShowOptions(false)
-        } else { 
-            setShowOptions(true)
-        }
-    }
-
-    async function checkTasks (id) {
-        const tasks = await taskService.getTasks(id)
-
-        console.log(tasks)
-    }
-
-    async function getNotifications() {
-        const { data } = await taskListService.getTaskLists()
-
-        console.log(data)
-        
-    }
-
-    useEffect(() => {
-        getNotifications()
-    }, [])
-
     return (
         <>
         <header className={styles.header}>
@@ -43,7 +18,7 @@ export default function Header () {
               <input type="text" name='searchBar' className={styles.searchInput}/>
             </div>
             
-             <div className={styles.userProfile} onClick={handleProfile}>
+             <div className={styles.userProfile}>
                 {
                     showOptions ? (
                         <div className={styles.profileOptions}>
