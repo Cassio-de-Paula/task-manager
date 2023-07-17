@@ -39,12 +39,14 @@
     border-radius: 10px;
 }
 
-.taskList {
+.taskListContainer {
     height: 80px;
     margin: 15px;
     border-radius: 10px;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     &:hover {
         scale: 1.2;
         transition: 0.3s;
@@ -99,7 +101,7 @@
     }
 }
 
-p{
+.text{
     font-weight: bold;
     color: rgb(131, 131, 131);
     width: 100%;

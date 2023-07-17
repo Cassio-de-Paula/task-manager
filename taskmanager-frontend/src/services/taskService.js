@@ -5,7 +5,7 @@ const taskService = {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .post(`/taskList/${id}/newTask`, params, {
+      .post(`/home/taskLists/${id}`, params, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -21,7 +21,7 @@ const taskService = {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .get(`/taskList/${id}`, {
+      .get(`/home/taskLists/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,7 +37,7 @@ const taskService = {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .get(`/taskList/${id}/search?name=${name}`, {
+      .get(`/home/taskLists/${id}/search?name=${name}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -53,7 +53,7 @@ const taskService = {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .delete(`/taskList/${id}`, params, {
+      .delete(`/home/taskLists/${id}`, params, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,7 +69,7 @@ const taskService = {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .put(`/taskList/edit/${id}`, params, {
+      .put(`/home/taskLists/${id}`, params, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

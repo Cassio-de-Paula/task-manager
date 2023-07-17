@@ -1,7 +1,10 @@
 .welcome {
+    width: 60vw;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: 60px;
     gap: 20px;
 }

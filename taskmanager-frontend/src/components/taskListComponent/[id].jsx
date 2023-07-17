@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import ErrorMessage from '../errorMessage'
 import taskService from '../../services/taskService'
 import { tasksHook } from '../../../hooks/getTasks'
+import dateFormat from '../../../hooks/dateFormat'
 
 export default function TaskList () {
-    const { id } = useParams()
+    const {id} = useParams()
     const router = useNavigate()
 
     const [errorMessage, setErrorMessage] = useState(false)
@@ -27,11 +28,13 @@ export default function TaskList () {
 
             return
         } else {
-            const params = {id, name, deadline, urgency}
+            const params = {name, deadline, urgency}
 
             console.log(params)
-    
-            const {status} = await taskService.newTask(params)
+                
+            const {status} = await taskService.newTask(+id, params)
+
+            console.log(status)
     
             if(status === 200) {
                 handleTasks()
@@ -46,8 +49,8 @@ export default function TaskList () {
 
     const handleTasks = async () => {
         const data = await tasksHook.tasks(id)
-
-        if(typeof data === 'object') {
+        console.log(data)
+        if(!data) {
             setMessage(true)
         } else {
             setShowTasks(data)
@@ -94,7 +97,16 @@ export default function TaskList () {
                     <div className={styles.tasksContainer}>
                         {
                             showTasks.map((task) => (
-                                <div className={styles.taskContainer} key={task.id}></div>
+                                <div className={styles.taskContainer} key={task.id}>
+                                    <p className={styles.taskText}>{task.name}</p>
+                                    <p className={styles.taskDate}>{dateFormat(task.deadline)}</p>
+                                    <p className={styles.taskUrgency}>Aviso {task.urgency} dias antes</p>
+                                    <div className={styles.taskBtnContainer}>
+                                        <button></button>
+                                        <button></button>
+                                        <button></button>
+                                    </div>
+                                </div>
                             ))
                         }
                     </div>

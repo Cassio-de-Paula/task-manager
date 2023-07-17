@@ -17,7 +17,6 @@
 .tasksContainer {
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
     height: 420px;
     width: 300px;
     border-radius: 10px;
@@ -89,6 +88,25 @@
     margin-bottom: 10px;
 }
 
+.taskContainer {
+    display: flex;
+    flex-direction: column;
+    width: 265px;
+    height: fit-content;
+    margin: 15px;
+    border-radius: 10px;
+    background-color: rgba(131,131,131,0.7);
+    gap: 3px;
+}
+
+.taskText, .taskDate, .taskUrgency {
+    color: white;
+}
+
+.taskDate, .taskUrgency {
+    font-size: 12px;
+}
+
 .description {
     font-size: 8px;
 }
@@ -97,7 +115,6 @@ p{
     font-weight: bold;
     color: rgb(131, 131, 131);
     width: 100%;
-    margin-bottom: 15px;
     font-family: 'Roboto';
     text-align: center;
 }
@@ -118,4 +135,9 @@ p{
     display: flex;
     justify-content: center;
   }
+
+  .taskBtnContainer {
+    display: flex;
+    justify-content: center;
+}
 

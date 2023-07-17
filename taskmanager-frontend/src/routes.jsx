@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <LoginScreen />
     },
     {
-        path: '/',
+        path: '/home',
         element: <Home/>,
         children: [
             {
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
                 element: <HomeComponent/>
             },
             {
-                path: 'taskLists',
+                path: '/home/taskLists',
                 element: <TaskLists/>,
             },
             {

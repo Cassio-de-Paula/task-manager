@@ -7,8 +7,6 @@ import taskListService from "../src/services/taskListService"
 
 
 export default function TaskLists() {
-    const router = useNavigate()
-
     const [message, setMessage] = useState(false)
     const [showTaskLists, setShowTaskLists] = useState([])
     const [errorMessage, setErrorMessage] = useState('')
@@ -31,8 +29,6 @@ export default function TaskLists() {
             return
         } else {
             const params = {name, color}
-
-            console.log(params)
     
             const {status} = await taskListService.newTaskList(params)
     
@@ -47,14 +43,14 @@ export default function TaskLists() {
 
     const handleTaskLists = async () => {
         const data = await taskListHook.taskLists()
+
+        console.log(data)
         
         if(!data) {
             setMessage(true)
         } else {
             setShowTaskLists(data)
         }
-
-        console.log('handle chamado...')
     }
 
     useEffect(() => {
@@ -70,7 +66,7 @@ export default function TaskLists() {
                 </label>
                 <br />
                 <br />
-                <p>Escolha uma cor para a Lista</p>
+                <p className={styles.text}>Escolha uma cor para a Lista</p>
                 <div className={styles.colorSection}>
                     <div className={styles.radio}>
                         <label style={{backgroundColor:'#cbffa9'}}>
@@ -118,8 +114,12 @@ export default function TaskLists() {
             ) : (
                     showTaskLists.map((taskList) => (
                         <Link to={`${taskList.id}`}> 
-                        <div className={styles.taskList} key={taskList.id} style={{backgroundColor:`${taskList.color}`}}>
+                        <div className={styles.taskListContainer} key={taskList.id} style={{backgroundColor:`${taskList.color}`}}>
                             <p className={styles.taskListName}>{taskList.name}</p>
+                            <div>
+                                <button><i className="fa-solid fa-pen-to-square"></i></button>
+                                <button><i className="fa-solid fa-trash-can"></i></button>
+                            </div>
                         </div>
                         </Link>
                 ))
