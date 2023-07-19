@@ -80,7 +80,7 @@ module.exports = {
   },
 
   deleteTaskList: async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
 
     try {
       await taskListService.removeTaskList({ id });

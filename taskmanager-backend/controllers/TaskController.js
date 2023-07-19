@@ -5,6 +5,8 @@ module.exports = {
     const { name, deadline, urgency } = req.body;
     const taskListId = req.params.id;
 
+    console.log(taskListId);
+
     try {
       const task = await taskService.createTask({
         name,
@@ -84,7 +86,7 @@ module.exports = {
   },
 
   deleteTask: async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
     try {
       await taskService.removeTask({ id });
 
@@ -92,6 +94,21 @@ module.exports = {
         throw new Error();
       }
 
+      return res.status(200).send();
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  },
+
+  deleteAll: async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      if (!id) {
+        throw new Error();
+      }
+
+      await taskService.removeAll(id);
       return res.status(200).send();
     } catch (error) {
       return res.status(400).json({ message: error.message });

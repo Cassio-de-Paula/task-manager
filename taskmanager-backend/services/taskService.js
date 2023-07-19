@@ -51,4 +51,12 @@ module.exports = {
       },
     });
   },
+
+  removeAll: async (id) => {
+    await Task.destroy({
+      where: {
+        taskListId: id,
+      },
+    });
+  },
 };
