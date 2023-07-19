@@ -5,7 +5,7 @@ const taskService = {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .post(`/home/taskLists/${id}`, params, {
+      .post(`/home/taskLists/tasks/${id}`, params, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -21,7 +21,7 @@ const taskService = {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .get(`/home/taskLists/${id}`, {
+      .get(`/home/taskLists/tasks/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,7 +37,7 @@ const taskService = {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .get(`/home/taskLists/${id}/search?name=${name}`, {
+      .get(`/home/taskLists/tasks/${id}/search?name=${name}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -53,7 +53,23 @@ const taskService = {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .delete(`/home/taskLists/${id}`, params, {
+      .delete(`/home/taskLists/tasks/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((error) => {
+        return error.response;
+      });
+
+    return res;
+  },
+
+  removeAllTasks: async (id) => {
+    const token = sessionStorage.getItem("taskManager-token");
+
+    const res = await api
+      .delete(`/home/taskLists/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

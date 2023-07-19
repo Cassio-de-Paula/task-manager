@@ -4,7 +4,6 @@
     align-self: center;
     display: grid;
     text-align: center;
-    margin-top: 100px;
     font-weight: bold;
     font-family: 'Roboto', sans-serif;
     color: white;
@@ -47,14 +46,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    &:hover {
-        scale: 1.2;
-        transition: 0.3s;
-        cursor: pointer;
-    }
 }
+  .messageContainer {
+    display: flex;
+    justify-content: center;
+  }
 
-.formContainer {
+  .formContainer {
     width: 300px;
     margin-top: 17px;
     height: fit-content;
@@ -173,8 +171,12 @@
     border-radius: 50%;
   }
 
-  .messageContainer {
+  .btnContainer {
     display: flex;
-    justify-content: center;
   }
 
+  .deleteBtn, .editBtn {
+    font-size: 8px;
+    padding: 5px;
+    color: rgb(131, 131, 131);
+  }

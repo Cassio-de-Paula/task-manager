@@ -1,7 +1,19 @@
+import { useEffect } from 'react'
 import LogoName from '../logoName'
 import styles from './index.module.css'
+import { useNavigate } from 'react-router-dom'
 
 export default function HomeNoAuth() {
+    const router = useNavigate()
+    
+    useEffect(() => {
+        const token = sessionStorage.getItem('taskManager-token')
+
+        if(token) {
+            router.push('/home')
+        }
+    }, [])
+
     return (
         <>
         <div className={styles.main}>

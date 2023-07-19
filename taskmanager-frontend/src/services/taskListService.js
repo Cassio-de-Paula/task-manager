@@ -19,6 +19,7 @@ const taskListService = {
 
   getTaskLists: async () => {
     const token = sessionStorage.getItem("taskManager-token");
+
     const res = await api
       .get("/home/taskLists", {
         headers: {
@@ -48,11 +49,11 @@ const taskListService = {
     return res;
   },
 
-  removeTaskList: async (params) => {
+  removeTaskList: async (id) => {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .delete("/home/taskLists", params, {
+      .delete(`/home/taskLists/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

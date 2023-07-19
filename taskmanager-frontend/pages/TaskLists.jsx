@@ -1,15 +1,22 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { taskListHook } from "../hooks/getTaskLists"
 import { useEffect, useState } from "react"
 import styles from '../styles/TaskLists.module.css'
-import ErrorMessage from "../src/components/errorMessage"
 import taskListService from "../src/services/taskListService"
-
+import ErrorMessage from '../src/components/errorMessage'
+import taskService from "../src/services/taskService"
+import { tasksHook } from "../hooks/getTasks"
 
 export default function TaskLists() {
-    const [message, setMessage] = useState(false)
     const [showTaskLists, setShowTaskLists] = useState([])
-    const [errorMessage, setErrorMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState(false)
+    const [showEditForm, setShowEditForm] = useState(false)
+    const [message, setMessage] = useState(false)
+    
+    
+    const handleReset = () => {
+        Array.from(document.querySelectorAll('input')).forEach(input => input.value = '')
+    }
 
     const handleTaskListSubmit = async (ev) => {
         ev.preventDefault()
@@ -31,31 +38,73 @@ export default function TaskLists() {
             const params = {name, color}
     
             const {status} = await taskListService.newTaskList(params)
-    
+            
+            handleReset()
+
             if(status === 200) {
-                handleTaskLists()
-    
+                handleGetTaskLists()
             } else {
                 setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
             }
         }
     }
 
-    const handleTaskLists = async () => {
+    const handleGetTaskLists = async () => {
         const data = await taskListHook.taskLists()
 
-        console.log(data)
-        
         if(!data) {
             setMessage(true)
         } else {
             setShowTaskLists(data)
         }
+
+        return data
     }
 
+    const handleEditTaskList = () => {
+        setShowEditForm(true)
+    }
+
+    const handleDeleteTaskList = async (ev) => {
+        ev.preventDefault()
+        let id = Number(ev.target.id)
+
+        const data = await tasksHook.tasks(id)
+
+        console.log(data.length)
+        
+        if(data.length === 0) {
+            const taskListResponse = await taskListService.removeTaskList(+id)
+
+            if(taskListResponse.status === 200) {
+                handleGetTaskLists()
+            } else {
+                setErrorMessage('Oops, parece que algo deu errado!')
+            }
+
+        } else {
+            const taskResponse = await taskService.removeAllTasks(id)
+
+            if(taskResponse.status === 200) {
+                const taskListResponse = await taskListService.removeTaskList(id)
+    
+                if(taskListResponse.status === 200) {
+                    handleGetTaskLists()
+                } else {
+                    setErrorMessage('Oops, parece que algo deu errado!')
+                }
+            }
+        }
+        
+
+    }
+
+
     useEffect(() => {
-        handleTaskLists()
+        handleGetTaskLists()
     }, [])
+
+    
 
     return (
         <>
@@ -107,25 +156,27 @@ export default function TaskLists() {
                     )
                 }
         </div>
-        <div className={styles.taskListsContainer}>
            {
-            message ? (
-                <p className={styles.message}>Pelo visto você ainda não possui nenhuma lista de tarefas <br /> cire sua primeira lista usando a caixa ao lado!</p>
+               message ? (
+                   <p className={styles.message}>Pelo visto você ainda não possui nenhuma lista de tarefas <br /> cire sua primeira lista usando a caixa ao lado!</p>
             ) : (
+                <div className={styles.taskListsContainer}>
+                    {
                     showTaskLists.map((taskList) => (
-                        <Link to={`${taskList.id}`}> 
                         <div className={styles.taskListContainer} key={taskList.id} style={{backgroundColor:`${taskList.color}`}}>
+                            <Link to={`${taskList.id}`}> 
                             <p className={styles.taskListName}>{taskList.name}</p>
-                            <div>
-                                <button><i className="fa-solid fa-pen-to-square"></i></button>
-                                <button><i className="fa-solid fa-trash-can"></i></button>
+                            </Link>
+                            <div className={styles.btnContainer}>
+                                <button id={taskList.id} className={styles.deleteBtn} onClick={handleDeleteTaskList}>EXCLUIR</button>
+                                <button id={taskList.id} className={styles.editBtn} onClick={handleEditTaskList}>EDITAR</button>
                             </div>
                         </div>
-                        </Link>
-                ))
-            )
+                    ))
+                    }
+                </div>
+                )
            }
-        </div>
         </>
     )
 }
