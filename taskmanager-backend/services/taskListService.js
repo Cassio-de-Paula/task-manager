@@ -30,20 +30,16 @@ module.exports = {
     return taskList;
   },
 
-  updateTaskList: async (id, name, color) => {
-    const [affectedRows, updatedTaskLists] = await TaskList.update(
-      name,
-      color,
-      {
-        where: { id },
-        returning: true,
-      }
-    );
+  updateTaskList: async ({ id, data }) => {
+    const [affectedRows, updatedTaskLists] = await TaskList.update(data, {
+      where: { id },
+      returning: true,
+    });
 
     return updatedTaskLists[0];
   },
 
-  removeTaskList: async ({ id }) => {
+  removeTaskList: async (id) => {
     await TaskList.destroy({
       where: {
         id,

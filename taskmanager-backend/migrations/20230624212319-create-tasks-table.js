@@ -15,7 +15,6 @@ module.exports = {
       },
       deadline: {
         type: DataTypes.DATE,
-        allowNull: false,
       },
       done: {
         type: DataTypes.BOOLEAN,

@@ -1,23 +1,13 @@
 const taskService = require("../services/taskService");
+const taskListController = require("../controllers/TaskListController");
+const taskListService = require("../services/taskListService");
 
 module.exports = {
   async newTask(req, res) {
-    const { name, deadline, urgency } = req.body;
-    const taskListId = req.params.id;
-
-    console.log(taskListId);
+    const data = req.body;
 
     try {
-      const task = await taskService.createTask({
-        name,
-        deadline,
-        urgency,
-        taskListId,
-      });
-
-      if (!taskListId) {
-        throw new Error();
-      }
+      const task = await taskService.createTask(data);
 
       return res.status(200).json(task);
     } catch (error) {
@@ -101,16 +91,17 @@ module.exports = {
   },
 
   deleteAll: async (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
+
+    console.log(id);
 
     try {
-      if (!id) {
-        throw new Error();
-      }
-
       await taskService.removeAll(id);
+      await taskListService.removeTaskList(id);
+
       return res.status(200).send();
     } catch (error) {
+      console.log(error.message);
       return res.status(400).json({ message: error.message });
     }
   },

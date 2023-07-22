@@ -65,32 +65,17 @@ module.exports = {
   },
 
   saveTaskList: async (req, res) => {
-    const { id, name, color } = req.body;
+    const { id, data } = req.body;
 
     try {
-      const taskList = await taskListService.updateTaskList(id, {
-        name,
-        color,
+      const taskList = await taskListService.updateTaskList({
+        id,
+        data,
       });
 
       return res.status(200).json(taskList);
     } catch (error) {
-      return res.status(400).json({ message: error.message });
-    }
-  },
-
-  deleteTaskList: async (req, res) => {
-    const { id } = req.params;
-
-    try {
-      await taskListService.removeTaskList({ id });
-
-      if (!id) {
-        throw new Error();
-      }
-
-      return res.status(200).send();
-    } catch (error) {
+      console.log(error);
       return res.status(400).json({ message: error.message });
     }
   },

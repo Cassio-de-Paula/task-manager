@@ -21,11 +21,9 @@ routes.get(
   TaskListController.searchTaskLists
 );
 routes.put("/home/taskLists", ensureAuth, TaskListController.saveTaskList);
-routes.delete(
-  "/home/taskLists/:id",
-  ensureAuth,
-  TaskListController.deleteTaskList
-);
+
+//Deleta a lista e as tarefas dentro dela ao mesmo tempo, o serviço das taskLists é chamado dentro do controlador de tasks
+routes.delete("/home/taskLists/:id", ensureAuth, TaskController.deleteAll);
 
 //Rotas de tarefas
 routes.post("/home/taskLists/tasks/:id", ensureAuth, TaskController.newTask);

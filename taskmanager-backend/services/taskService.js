@@ -2,8 +2,8 @@ const Task = require("../models/Task");
 const { Op } = require("sequelize");
 
 module.exports = {
-  createTask: async ({ name, deadline, urgency, taskListId }) => {
-    const task = await Task.create({ name, deadline, urgency, taskListId });
+  createTask: async (data) => {
+    const task = await Task.create(data);
     return task;
   },
 
@@ -30,13 +30,10 @@ module.exports = {
     return tasks;
   },
 
-  updateTask: async (id, { name, deadline, urgency, done }) => {
+  updateTask: async (id, params) => {
     const [affectedRows, updatedTasks] = await Task.update(
       {
-        name,
-        deadline,
-        urgency,
-        done,
+        params,
       },
       { where: { id }, returning: true }
     );
