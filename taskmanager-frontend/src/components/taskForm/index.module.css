@@ -1,0 +1,76 @@
+.postForm, .putForm {
+    width: 300px;
+    height: 410px;
+    margin-top: 17px;
+    height: fit-content;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.postForm {
+    background-color: rgba(255,255,255, 0.7);
+}
+
+.putForm {
+    background-color: rgba(145,208,255, 0.7);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.label {
+    font-weight: bold;
+    color: rgb(131, 131, 131);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Roboto';
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.taskContainer {
+    display: flex;
+    flex-direction: column;
+    width: 265px;
+    height: fit-content;
+    margin: 15px;
+    border-radius: 10px;
+    background-color: rgba(131,131,131,0.7);
+    gap: 3px;
+}
+
+p{
+    font-weight: bold;
+    color: rgb(131, 131, 131);
+    width: 100%;
+    font-family: 'Roboto';
+    text-align: center;
+}
+
+.input {
+    height: 30px;
+    border-radius: 10px;
+    width: 80%;
+    border: 1px solid rgb(131,131,131);
+    padding: 5px;
+    margin-top: 5px;
+    &:focus {
+        outline: 0;
+    }
+}
+
+.description {
+    font-size: 8px;
+}
+

@@ -1,11 +1,11 @@
 import api from "./api";
 
 const taskService = {
-  newTask: async (id, params) => {
+  newTask: async (taskListId, data) => {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .post(`/home/taskLists/tasks/${id}`, params, {
+      .post(`/home/taskLists/${taskListId}/tasks`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -17,11 +17,11 @@ const taskService = {
     return res;
   },
 
-  getTasks: async (id) => {
+  getTasks: async (taskListId) => {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .get(`/home/taskLists/tasks/${id}`, {
+      .get(`/home/taskLists/${taskListId}/tasks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -33,11 +33,11 @@ const taskService = {
     return res;
   },
 
-  getTasksByName: async (id, name) => {
+  getTasksByName: async (taskListId, name) => {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .get(`/home/taskLists/tasks/${id}/search?name=${name}`, {
+      .get(`/home/taskLists/${taskListId}/tasks/search?name=${name}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,11 +49,11 @@ const taskService = {
     return res;
   },
 
-  removeTask: async (id, params) => {
+  removeTask: async (taskListId, id) => {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .delete(`/home/taskLists/tasks/${id}`, {
+      .delete(`/home/taskLists/${taskListId}/tasks/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -81,11 +81,11 @@ const taskService = {
     return res;
   },
 
-  updateTaskName: async (id, params) => {
+  updateTask: async (taskListId, data) => {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .put(`/home/taskLists/${id}`, params, {
+      .put(`/home/taskLists/${taskListId}/tasks`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

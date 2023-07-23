@@ -5,7 +5,7 @@ import RegisterScreen from '../pages/Register'
 import Home from '../pages/Home'
 import TaskLists from '../pages/TaskLists'
 import HomeComponent from './components/homeComponent'
-import TaskList from './components/taskListComponent/[id]'
+import Tasks from '../pages/Tasks'
 
 const router = createBrowserRouter([
     {
@@ -33,8 +33,8 @@ const router = createBrowserRouter([
                 element: <TaskLists/>,
             },
             {
-                path: 'tasklists/:id',
-                element: <TaskList/>
+                path: 'tasklists/:taskListId/tasks',
+                element: <Tasks/>
             }
 
         ]

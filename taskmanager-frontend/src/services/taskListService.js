@@ -65,7 +65,7 @@ const taskListService = {
     return res;
   },
 
-  updateTaskListName: async (params) => {
+  updateTaskList: async (params) => {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
