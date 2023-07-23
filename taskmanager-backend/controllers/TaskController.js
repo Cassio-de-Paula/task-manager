@@ -1,5 +1,4 @@
 const taskService = require("../services/taskService");
-const taskListController = require("../controllers/TaskListController");
 const taskListService = require("../services/taskListService");
 
 module.exports = {
@@ -16,12 +15,10 @@ module.exports = {
   },
 
   async getTasks(req, res) {
-    const taskListId = req.params.id;
+    const { taskListId } = req.params;
 
     try {
-      const tasks = await taskService.getTasks({
-        taskListId,
-      });
+      const tasks = await taskService.getTasks(taskListId);
 
       if (!taskListId) {
         throw new Error();
@@ -35,7 +32,7 @@ module.exports = {
 
   async searchTask(req, res) {
     const name = req.query.name;
-    const taskListId = req.params.id;
+    const { taskListId } = req.params;
 
     try {
       const task = await taskService.getTasksByName({
@@ -58,16 +55,13 @@ module.exports = {
   },
 
   saveTask: async (req, res) => {
-    const { name, deadline, urgency, done } = req.body;
-    const id = req.params.id;
+    const data = req.body;
+    const { id } = data;
+
+    console.log(id, data);
 
     try {
-      const task = await taskService.updateTask(id, {
-        name,
-        deadline,
-        urgency,
-        done,
-      });
+      const task = await taskService.updateTask(id, data);
 
       return res.status(200).json(task);
     } catch (error) {
@@ -92,8 +86,6 @@ module.exports = {
 
   deleteAll: async (req, res) => {
     const id = req.params.id;
-
-    console.log(id);
 
     try {
       await taskService.removeAll(id);

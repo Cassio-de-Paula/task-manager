@@ -26,16 +26,28 @@ routes.put("/home/taskLists", ensureAuth, TaskListController.saveTaskList);
 routes.delete("/home/taskLists/:id", ensureAuth, TaskController.deleteAll);
 
 //Rotas de tarefas
-routes.post("/home/taskLists/tasks/:id", ensureAuth, TaskController.newTask);
-routes.get("/home/taskLists/tasks/:id", ensureAuth, TaskController.getTasks);
+routes.post(
+  "/home/taskLists/:taskListId/tasks",
+  ensureAuth,
+  TaskController.newTask
+);
 routes.get(
-  "/home/taskLists/tasks/:id/search",
+  "/home/taskLists/:taskListId/tasks",
+  ensureAuth,
+  TaskController.getTasks
+);
+routes.get(
+  "/home/taskLists/:taskListId/tasks/search",
   ensureAuth,
   TaskController.searchTask
 );
-routes.put("/home/taskLists/tasks/:id", ensureAuth, TaskController.saveTask);
+routes.put(
+  "/home/taskLists/:taskListId/tasks",
+  ensureAuth,
+  TaskController.saveTask
+);
 routes.delete(
-  "/home/taskLists/tasks/:id",
+  "/home/taskLists/:taskListId/tasks/:id",
   ensureAuth,
   TaskController.deleteTask
 );

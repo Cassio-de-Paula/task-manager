@@ -7,7 +7,7 @@ module.exports = {
     return task;
   },
 
-  getTasks: async ({ taskListId }) => {
+  getTasks: async (taskListId) => {
     const tasks = await Task.findAll({
       where: {
         taskListId,
@@ -29,19 +29,16 @@ module.exports = {
 
     return tasks;
   },
-
-  updateTask: async (id, params) => {
-    const [affectedRows, updatedTasks] = await Task.update(
-      {
-        params,
-      },
-      { where: { id }, returning: true }
-    );
+  updateTask: async (id, data) => {
+    const [affectedRows, updatedTasks] = await Task.update(data, {
+      where: { id },
+      returning: true,
+    });
 
     return updatedTasks[0];
   },
 
-  removeTask: async (id) => {
+  removeTask: async ({ id }) => {
     await Task.destroy({
       where: {
         id,
