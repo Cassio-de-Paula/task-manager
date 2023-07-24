@@ -8,10 +8,19 @@ export default function TaskForm(props) {
     const {taskListId} = useParams()
 
     const [rangeValue, setRangeValue] = useState(0)
-    const [errorMessage, setErrorMessage] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+    const [addDateAndUrgency, setAddDateAndUrgency] = useState(false)
 
     const handleReset = () => {
         Array.from(document.querySelectorAll('input')).forEach(input => input.value = '')
+    }
+
+    const handleSetOptions = () => {
+        if(addDateAndUrgency) {
+            setAddDateAndUrgency(false)
+        } else {
+            setAddDateAndUrgency(true)
+        }
     }
 
     const handleTaskSubmit = async (ev) => {
@@ -19,30 +28,60 @@ export default function TaskForm(props) {
 
         const formData = new FormData(ev.currentTarget)
         const name = formData.get('taskName')
-        const deadline = formData.get('deadline')
-        const urgency = formData.get('urgency')
+        const getUrgency = formData.get('urgency')
+        const getDate = formData.get('deadline')
+        let deadline = null
+        let urgency = null
+        let data = {taskListId, name}
+        const today = new Date()
 
         if(!name || name === '') {
             setErrorMessage('Insira um nome para sua tarefa!')
-
-            return
         } else {
-            const data = {taskListId, name, deadline, urgency}
+            if(addDateAndUrgency) {
+                const date = getDate ? new Date(getDate) : null
+                urgency = getUrgency
 
-            Object.keys(data).forEach(key => data[key] == null || data[key] == '' && delete data[key])
-                
-            const {status} = await taskService.newTask(taskListId, data)
+                if(date < today || date === null ) {
+                    setErrorMessage('Insira uma data válida!')
+                } else if (date.getDate() - today.getDate() + 1 < (urgency)) {
+                    setErrorMessage('Aviso inválido!')
+                } else {
+
+                    const utcYear = date.getUTCFullYear();
+                    const utcMonth = date.getUTCMonth();
+                    const utcDay = date.getUTCDate();
     
-            if(status === 200) {
-                props.handleGetTasks()
-                handleReset()
+                    const localDate = new Date(utcYear, utcMonth, utcDay);
     
+                    deadline = localDate
+
+                    data = {taskListId, name, deadline, urgency}
+
+                    const {status} = await taskService.newTask(taskListId, data)
+
+                    if(status === 200) {
+                        props.handleGetTasks()
+                        handleReset()
+                        setErrorMessage('')
+                        setAddDateAndUrgency(false)
+                    } else {
+                        setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
+                    }
+                }
             } else {
-                setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
+                const {status} = await taskService.newTask(taskListId, data)
+
+                if(status === 200) {
+                    props.handleGetTasks()
+                    handleReset()
+                    setErrorMessage('')
+                    setAddDateAndUrgency(false)
+                } else {
+                    setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
+                }
             }
         }
-
-        
     }
 
     const handleTaskUpdate = async (ev) => {
@@ -51,22 +90,60 @@ export default function TaskForm(props) {
 
         const formData = new FormData(ev.currentTarget)
         const name = formData.get('taskName')
-        const deadline = formData.get('deadline')
         const urgency = formData.get('urgency')
+        const getDate = formData.get('deadline')
+        let deadline = null
+        const today = new Date()
 
+        if(addDateAndUrgency) {
+            const date = getDate ? new Date(getDate) : null
+
+            if(date < today || date === null ) {
+                setErrorMessage('Insira uma data válida ou desmarque a caixa!')
+            } else if (date.getDate() - today.getDate() + 1 < (urgency)) {
+                setErrorMessage('Aviso inválido!')
+            } else {
+
+                const utcYear = date.getUTCFullYear();
+                const utcMonth = date.getUTCMonth();
+                const utcDay = date.getUTCDate();
+
+                const localDate = new Date(utcYear, utcMonth, utcDay);
+
+                deadline = localDate
+
+                const data = {id, name, deadline, urgency}
+
+                Object.keys(data).forEach(key => data[key] == null || data[key] == '' && delete data[key])
+
+                const {status} = await taskService.updateTask(taskListId, data)
+    
+                if(status === 200) {
+                    props.handleGetTasks()
+                    handleReset()
+                    setErrorMessage('')
+                    setAddDateAndUrgency(false)
+                } else {
+                    setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
+                }
+            }  
+        } else {
             const data = {id, name, deadline, urgency}
 
-            Object.keys(data).forEach(key => data[key] == null || data[key] == '' && delete data[key])
-                
+            Object.keys(data).forEach(key => data[key] == '' && delete data[key])
+
             const {status} = await taskService.updateTask(taskListId, data)
     
             if(status === 200) {
                 props.handleGetTasks()
                 handleReset()
+                setErrorMessage('')
+                setAddDateAndUrgency(false)
             } else {
                 setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
             }
         }
+    }
 
     return (
         <div className={styles.container}>
@@ -74,14 +151,23 @@ export default function TaskForm(props) {
                 <label className={styles.label}> {props.postMethod ? 'Nova Tarefa' : 'Editar Tarefa'}
                     <input type="text" name='taskName' className={styles.input}/>
                 </label>
-                <label className={styles.label}> Prazo 
-                    <input type="date"  name='deadline' className={styles.input}/>
-                </label>
-                <label className={styles.label}> Aviso
-                    <input type="range" min={0} max={15} name='urgency' className={styles.range} onInput={(ev) => {setRangeValue(ev.currentTarget.value)}}/>
-                    <span>{rangeValue}</span>
-                    <p className={styles.description}>Informe quantos dias antes do prazo <br /> você gostaria de ser avisado desta tarefa</p>
-                </label>
+                <button onClick={handleSetOptions}><p>Adicionar prazo e aviso</p></button>
+                {
+                    addDateAndUrgency ? (
+                    <>
+                    <label className={styles.label}> Prazo 
+                        <input type="date" name='deadline' className={styles.input}/>
+                    </label>
+                    <label className={styles.label}> Aviso
+                        <input type="range" min={0} max={15} name='urgency' className={styles.range} onInput={(ev) => {setRangeValue(ev.currentTarget.value)}}/>
+                        <span>{rangeValue}</span>
+                        <p className={styles.description}>Informe quantos dias antes do prazo <br /> você gostaria de ser avisado desta tarefa</p>
+                    </label>
+                    </>
+                    ) : (
+                        <></>
+                    )
+                }
                 <button type='submit' className={styles.taskFormBtn}><p className={styles.text}>{props.postMethod ? 'CRIAR' : 'SALVAR'}</p></button>
                 </form>
                 {

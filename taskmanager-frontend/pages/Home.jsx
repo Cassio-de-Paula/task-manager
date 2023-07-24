@@ -7,9 +7,9 @@ export default function Home () {
         <>
         <div className={styles.mainContainer}>
             <Header/>
-        <div className={styles.homeContainer}>
-            <Outlet/>
-        </div>
+            <div className={styles.homeContainer}>
+                <Outlet/>
+            </div>
         </div>
         </>
     )
