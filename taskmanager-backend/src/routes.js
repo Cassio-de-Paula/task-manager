@@ -52,4 +52,11 @@ routes.delete(
   TaskController.deleteTask
 );
 
+// rota de notificações
+routes.get(
+  "/notifications",
+  ensureAuth,
+  TaskController.getTasksWithNotifications
+);
+
 module.exports = routes;

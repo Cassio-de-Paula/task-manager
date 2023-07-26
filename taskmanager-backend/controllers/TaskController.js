@@ -1,5 +1,7 @@
 const taskService = require("../services/taskService");
 const taskListService = require("../services/taskListService");
+const { getTaskLists } = require("./TaskListController");
+const TaskListController = require("./TaskListController");
 
 module.exports = {
   async newTask(req, res) {
@@ -58,8 +60,6 @@ module.exports = {
     const data = req.body;
     const { id } = data;
 
-    console.log(id, data);
-
     try {
       const task = await taskService.updateTask(id, data);
 
@@ -93,7 +93,45 @@ module.exports = {
 
       return res.status(200).send();
     } catch (error) {
-      console.log(error.message);
+      return res.status(400).json({ message: error.message });
+    }
+  },
+
+  getTasksWithNotifications: async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+      const taskLists = await taskListService.getLists({ userId });
+
+      const taskList = await Promise.all(
+        taskLists.map(async (taskList) => {
+          return await taskService.getTasks(taskList.id);
+        })
+      );
+
+      const notifications = await Promise.all(
+        taskList.map(async (tasks) => {
+          return await Promise.all(
+            tasks.map(async (task) => {
+              const today = new Date();
+              const difference = Math.floor(
+                (task.deadline.getTime() - today.getTime()) /
+                  (1000 * 60 * 60 * 24) +
+                  1
+              );
+
+              if (difference == task.urgency) {
+                return { taskId: task.id, taskListId: task.taskListId };
+              } else {
+                return;
+              }
+            })
+          );
+        })
+      );
+
+      return res.status(200).json(notifications);
+    } catch (error) {
       return res.status(400).json({ message: error.message });
     }
   },
