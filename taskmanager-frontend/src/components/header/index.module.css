@@ -67,13 +67,5 @@ a:link {
     border-radius: 5px;
     margin: 5px;
     display: flex;
-}
-
-.notificationSign {
-    width: 18px;
-    height: 18px;
-    background-color: rgb(145,208,255);
-    border-radius: 50%;
-    text-align: center;
-    color: white;
+    align-items: center;
 }

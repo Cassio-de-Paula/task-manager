@@ -18,8 +18,6 @@ export default function LoginScreen () {
 
         const params = {email, password}
 
-        console.log(params)
-
         const {status} = await authService.login(params)
 
         if(status === 200) {

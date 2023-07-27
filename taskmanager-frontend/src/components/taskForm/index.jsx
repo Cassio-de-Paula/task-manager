@@ -41,13 +41,16 @@ export default function TaskForm(props) {
             if(addDateAndUrgency) {
                 const date = getDate ? new Date(getDate) : null
                 urgency = getUrgency
+                const difference = Math.floor((date.getTime() - today.getTime())/(1000*60*60*24)) + 1
+
 
                 if(date < today || date === null ) {
                     setErrorMessage('Insira uma data válida!')
-                } else if (date.getDate() - today.getDate() + 1 < (urgency)) {
+                } else if (difference < (urgency)) {
+                    console.log(difference)
                     setErrorMessage('Aviso inválido!')
                 } else {
-
+                    console.log(difference)
                     const utcYear = date.getUTCFullYear();
                     const utcMonth = date.getUTCMonth();
                     const utcDay = date.getUTCDate();
@@ -97,10 +100,13 @@ export default function TaskForm(props) {
 
         if(addDateAndUrgency) {
             const date = getDate ? new Date(getDate) : null
+            const difference = Math.floor((date.getTime() - today.getTime())/(1000*60*60*24)) + 1
 
             if(date < today || date === null ) {
                 setErrorMessage('Insira uma data válida ou desmarque a caixa!')
-            } else if (date.getDate() - today.getDate() + 1 < (urgency)) {
+
+            } else if (difference < (urgency)) {
+                console.log(difference)
                 setErrorMessage('Aviso inválido!')
             } else {
 
@@ -151,7 +157,7 @@ export default function TaskForm(props) {
                 <label className={styles.label}> {props.postMethod ? 'Nova Tarefa' : 'Editar Tarefa'}
                     <input type="text" name='taskName' className={styles.input}/>
                 </label>
-                <button onClick={handleSetOptions}><p>Adicionar prazo e aviso</p></button>
+                <button type='button' onClick={handleSetOptions}><p>Adicionar prazo e aviso</p></button>
                 {
                     addDateAndUrgency ? (
                     <>

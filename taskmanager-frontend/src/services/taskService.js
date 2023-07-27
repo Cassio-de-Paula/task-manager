@@ -96,6 +96,22 @@ const taskService = {
 
     return res;
   },
+
+  getNotifications: async () => {
+    const token = sessionStorage.getItem("taskManager-token");
+
+    const res = await api
+      .get(`/notifications`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((error) => {
+        return error.response;
+      });
+
+    return res;
+  },
 };
 
 export default taskService;

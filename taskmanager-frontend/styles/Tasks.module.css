@@ -65,6 +65,10 @@
     margin: 10px;
 }
 
+.taskTitle {
+    display: flex;
+}
+
 .taskContainer {
     border: 2px solid white;
 }
