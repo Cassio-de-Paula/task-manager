@@ -68,4 +68,8 @@
     font-size: 8px;
     padding: 5px;
     color: rgb(131, 131, 131);
+    background-color: transparent;
+    border: 1px solid rgb(131, 131, 131);
+    border-radius: 5px;
+    margin: 10px;
   }

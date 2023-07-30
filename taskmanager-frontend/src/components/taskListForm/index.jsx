@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import styles from './index.module.css'
-import ErrorMessage from '../errorMessage'
+import btn from '../button/index.module.css'
+import Message from '../message'
 import taskListService from '../../services/taskListService'
 
 export default function TaskListForm (props) {
-    const [errorMessage, setErrorMessage] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
 
     const handleReset = () => {
         Array.from(document.querySelectorAll('input')).forEach(input => input.value = '')
@@ -19,8 +21,6 @@ export default function TaskListForm (props) {
 
         if(!name || name === '') {
             setErrorMessage('Insira um nome para sua lista!')
-
-            return
         } 
         else if(!color) {
             setErrorMessage('Escolha uma cor para sua lista!')
@@ -35,7 +35,11 @@ export default function TaskListForm (props) {
 
             if(status === 200) {
                 props.handleGetTaskLists()
-                setErrorMessage(false)
+                setSuccessMessage('Lista de tarefas criada com sucesso!')
+                    setTimeout(() => {
+                        setSuccessMessage('')
+                    }, 3000);
+                setErrorMessage('')
             } else {
                 setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
             }
@@ -63,7 +67,11 @@ export default function TaskListForm (props) {
 
         if(status === 200) {
             props.handleGetTaskLists()
-            setErrorMessage(false)
+            setErrorMessage('')
+            setSuccessMessage('Lista de tarefas atualizada com sucesso!')
+                    setTimeout(() => {
+                        setSuccessMessage('')
+                    }, 3000);
         } else {
             setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
         }
@@ -72,7 +80,7 @@ export default function TaskListForm (props) {
 
     return (
         <>
-        <div className={styles.container}>
+        <section className={styles.container}>
         <form id={props.formId} method={props.methodPost ? 'post' : 'put'} className={props.methodPost ? styles.postForm : styles.putForm} onSubmit={props.methodPost ? handleTaskListSubmit : handleTaskListUpdate}>
                 <label htmlFor="taskListName" className={styles.label}> {props.methodPost ? 'Nova Lista' : 'Editar Lista'}
                     <input type="text" id='taskListName' name='taskListName' className={styles.input} placeholder='Insira o nome da lista' maxLength={30}/>
@@ -81,45 +89,51 @@ export default function TaskListForm (props) {
                 <br />
                 <p className={styles.text}>Escolha uma cor para a Lista</p>
                 <div className={styles.colorSection}>
-                    <div className={styles.radio}>
+                    <span className={styles.radio}>
                         <label style={{backgroundColor:'#9be8d8'}}>
                             <input type="radio" name="color" value='#9be8d8' />
                         </label>
-                    </div>
-                    <div className={styles.radio}>
+                    </span>
+                    <span className={styles.radio}>
                         <label style={{backgroundColor:'#cbffa9'}}>
                             <input type="radio" name="color" value='#cbffa9' />
                         </label>
-                    </div>
-                    <div className={styles.radio}>
+                    </span>
+                    <span className={styles.radio}>
                         <label style={{backgroundColor:'#fae392'}}>
                             <input type="radio" name="color" value='#fae392' />
                         </label>
-                    </div>
-                    <div className={styles.radio}>
+                    </span>
+                    <span className={styles.radio}>
                         <label style={{backgroundColor:'#e8d3b6'}}>
                             <input type="radio" name="color" value='#e8d3b6' />
                         </label>
-                    </div>
-                    <div className={styles.radio}>
+                    </span>
+                    <span className={styles.radio}>
                         <label style={{backgroundColor:'#f7b37c'}}>
                             <input type="radio" name="color" value='#f7b37c' />
                         </label>
-                    </div>
+                    </span>
                 </div>
-                <button type='submit' className={styles.taskListFormBtn}>SALVAR</button>
+                <button type='submit' className={btn.btn}><p>SALVAR</p></button>
                 </form>
                 {
                     errorMessage ? (
-                        <div className={styles.error}>
-                            <ErrorMessage message={errorMessage}/>
-                        </div>
+                            <Message message={errorMessage} error={true}/>
                     ) : (
                         <>
                         </>
                     )
                 }
-        </div>
+                {
+                    successMessage ? (
+                        <Message message={successMessage} error={false}/>
+                    ) : (
+                        <>
+                        </>
+                    )
+                }
+        </section>
         </>
     )
 }

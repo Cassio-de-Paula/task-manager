@@ -6,6 +6,7 @@ import Home from '../pages/Home'
 import TaskLists from '../pages/TaskLists'
 import HomeComponent from './components/homeComponent'
 import Tasks from '../pages/Tasks'
+import Profile from '../pages/Profile'
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path: 'tasklists/:taskListId/tasks',
                 element: <Tasks/>
+            },
+            {
+                path: '/home/myAccount',
+                element: <Profile/>
             }
 
         ]

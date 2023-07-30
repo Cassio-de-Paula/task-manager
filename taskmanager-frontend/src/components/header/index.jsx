@@ -1,6 +1,6 @@
 import styles from './index.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import Logo from '../logoComponent'
 import '../logoComponent/index.module.css'
 import { useEffect, useState } from 'react'
@@ -8,6 +8,7 @@ import taskListService from '../../services/taskListService'
 import { Link } from 'react-router-dom'
 import taskService from '../../services/taskService'
 import NotificationSign from '../notificationSign'
+import Aos from 'aos'
 
 export default function Header () {
     const [showOptions, setShowOptions] = useState(false)
@@ -53,6 +54,7 @@ export default function Header () {
     useEffect(() => {
         handleNotifications()
         handleTaskLists()
+        Aos.init()
     }, [showOptions])
 
     return (
@@ -66,20 +68,23 @@ export default function Header () {
             </div>
             <div className={styles.userProfile} onClick={handleUser}>
                 {
-                    taskListIds ? (
+                    taskListIds.length > 0 ? (
                         <NotificationSign/>
                         ) : (
                             <></>
                         )
                 }
+                <span className={styles.userIcon}>
+                    <FontAwesomeIcon icon={faUser} color='#9ad0ff' size='4x'/>
+                </span>
             </div>
         </header>
             {
                 showOptions ? (
-                    <div className={styles.profileSection}>
-                        <a href="/myAccount">
+                    <section className={styles.profileSection} data-aos='fade-left' data-aos-duration='200'>
+                        <Link to={'/home/myAccount'}>
                             <p>Minha conta</p>
-                        </a>
+                        </Link>
                         <div className={styles.notifications}>
                             <p>Notificações</p>
                            
@@ -100,7 +105,7 @@ export default function Header () {
                                 ))
                             }
                         </div>
-                    </div>
+                    </section>
                     ) : (
                         <>
                         </>

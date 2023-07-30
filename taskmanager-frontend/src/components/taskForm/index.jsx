@@ -1,14 +1,16 @@
 import { useState } from "react"
-import ErrorMessage from '../errorMessage'
 import styles from './index.module.css'
+import btn from '../button/index.module.css'
 import taskService from "../../services/taskService"
 import { useParams } from "react-router-dom"
+import Message from '../message'
 
 export default function TaskForm(props) {
     const {taskListId} = useParams()
 
     const [rangeValue, setRangeValue] = useState(0)
     const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
     const [addDateAndUrgency, setAddDateAndUrgency] = useState(false)
 
     const handleReset = () => {
@@ -47,10 +49,8 @@ export default function TaskForm(props) {
                 if(date < today || date === null ) {
                     setErrorMessage('Insira uma data válida!')
                 } else if (difference < (urgency)) {
-                    console.log(difference)
                     setErrorMessage('Aviso inválido!')
                 } else {
-                    console.log(difference)
                     const utcYear = date.getUTCFullYear();
                     const utcMonth = date.getUTCMonth();
                     const utcDay = date.getUTCDate();
@@ -67,6 +67,10 @@ export default function TaskForm(props) {
                         props.handleGetTasks()
                         handleReset()
                         setErrorMessage('')
+                        setSuccessMessage('Tarefa criada com sucesso')
+                        setTimeout(() => {
+                            setSuccessMessage('')
+                        }, 3000);
                         setAddDateAndUrgency(false)
                     } else {
                         setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
@@ -79,6 +83,10 @@ export default function TaskForm(props) {
                     props.handleGetTasks()
                     handleReset()
                     setErrorMessage('')
+                    setSuccessMessage('Tarefa criada com sucesso!')
+                    setTimeout(() => {
+                        setSuccessMessage('')
+                    }, 3000);
                     setAddDateAndUrgency(false)
                 } else {
                     setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
@@ -106,7 +114,6 @@ export default function TaskForm(props) {
                 setErrorMessage('Insira uma data válida ou desmarque a caixa!')
 
             } else if (difference < (urgency)) {
-                console.log(difference)
                 setErrorMessage('Aviso inválido!')
             } else {
 
@@ -128,6 +135,10 @@ export default function TaskForm(props) {
                     props.handleGetTasks()
                     handleReset()
                     setErrorMessage('')
+                    setSuccessMessage('Tarefa atualizada com sucesso!')
+                    setTimeout(() => {
+                        setSuccessMessage('')
+                    }, 3000);
                     setAddDateAndUrgency(false)
                 } else {
                     setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
@@ -144,6 +155,10 @@ export default function TaskForm(props) {
                 props.handleGetTasks()
                 handleReset()
                 setErrorMessage('')
+                setSuccessMessage('Tarefa atualizada com sucesso!')
+                    setTimeout(() => {
+                        setSuccessMessage('')
+                    }, 3000);
                 setAddDateAndUrgency(false)
             } else {
                 setErrorMessage('Oops, algo deu errado, tente novamente mais tarde!')
@@ -152,12 +167,12 @@ export default function TaskForm(props) {
     }
 
     return (
-        <div className={styles.container}>
+        <section className={styles.container}>
         <form id={props.taskListId} method={props.postMethod ? 'post' : 'put'} className={props.postMethod ? styles.postForm : styles.putForm} onSubmit={props.postMethod ? handleTaskSubmit : handleTaskUpdate}>
                 <label className={styles.label}> {props.postMethod ? 'Nova Tarefa' : 'Editar Tarefa'}
                     <input type="text" name='taskName' className={styles.input}/>
                 </label>
-                <button type='button' onClick={handleSetOptions}><p>Adicionar prazo e aviso</p></button>
+                <button type='button' className={btn.btn} onClick={handleSetOptions}><p>Adicionar prazo e aviso</p></button>
                 {
                     addDateAndUrgency ? (
                     <>
@@ -174,18 +189,24 @@ export default function TaskForm(props) {
                         <></>
                     )
                 }
-                <button type='submit' className={styles.taskFormBtn}><p className={styles.text}>{props.postMethod ? 'CRIAR' : 'SALVAR'}</p></button>
+                <button type='submit' className={btn.btn}><p className={styles.text}>{props.postMethod ? 'CRIAR' : 'SALVAR'}</p></button>
                 </form>
                 {
                     errorMessage ? (
-                        <div>
-                            <ErrorMessage message={errorMessage}/>
-                        </div>
+                            <Message message={errorMessage} error={true}/>
                     ) : (
                         <>
                         </>
                     )
                 }
-        </div>
+                {
+                    successMessage ? (
+                        <Message message={successMessage} error={false}/>
+                    ) : (
+                        <>
+                        </>
+                    )
+                }
+        </section>
     )
 }

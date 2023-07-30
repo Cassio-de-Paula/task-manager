@@ -5,7 +5,7 @@ export default function HomeComponent () {
         <div className={styles.welcome}>
         <h1>Bem Vindo ao <br /> Task Manager</h1>
         <a href="/home/taskLists">
-            <button>COMEÇAR {'>>'}</button>
+            <button className={styles.btn}><p className={styles.btnText}>COMEÇAR</p></button>
         </a>
         </div>
     )

@@ -2,7 +2,8 @@
     width: 24px;
     height: 22px;
     border-radius: 50%;
-    background-color: rgb(154,208,255);
+    background-color: #9ad0ff;
     text-align: center;
     padding: 2px;
+    position: absolute;
 }

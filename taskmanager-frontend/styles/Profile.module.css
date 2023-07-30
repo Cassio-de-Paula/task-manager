@@ -1,0 +1,98 @@
+ .userArea {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30%;
+    height: 47vh;
+    background-color: rgba(255,255,255,0.7);
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+ }
+
+ .formContainer {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+
+ .userName {
+   font-weight: bold;
+   font-size: 40px;
+   margin-top: 15px;
+ }
+
+ .subtitle {
+   margin-top: 20px;
+   text-align: center;
+ }
+
+ .toggleBoxName, .toggleBoxPassword {
+    width: 80px;
+    height: 30px;
+    border-radius: 15px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+ }
+
+ .toggleBoxName {
+    background-color: #ffffff;
+ }
+
+ .toggleBoxPassword {
+    background-color: rgb(154,208,255);
+    flex-direction: row-reverse;
+ }
+
+ .toggleName, .togglePassword {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+ }
+
+ .toggleName {
+    background-color: rgb(154,208,255);
+ }
+
+ .togglePassword {
+    background-color: #ffffff;
+ }
+
+ .toggleTagName, .toggleTagPassword {
+    width: fit-content;
+    padding-right: 3px;
+ }
+
+ .updateName, .updatePassword {
+   width: 30vw;
+   height: 47vh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-evenly;
+   background-color: rgba(255,255,255,0.7);
+   border-radius: 10px;
+   border: 2px solid #ffffff;
+   padding: 20px;
+ }
+
+ input {
+   height: 30px;
+   border-radius: 10px;
+   width: 100%;
+   border: 1px solid rgb(131,131,131);
+   padding: 5px;
+   margin-top: 5px;
+   &:focus {
+       outline: 0;
+   }
+}
+
+label {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}

@@ -1,5 +1,5 @@
 
-.errorMessage {
+.errorMessage, .successMessage {
     text-align: center;
     font-weight: bold;
     padding: 10px;
@@ -7,12 +7,20 @@
     height: fit-content;
     margin-top: 10px;
     border-radius: 5px;
-    border: 1px red;
     border-style: dashed solid;
-    background-color: rgba(255, 0, 0, 0.374);
     color: white;
     animation: popout .5s ease;
     -webkit-animation: popout .5s ease;
+}
+
+.errorMessage {
+    border: 2px red;
+    background-color: rgba(255, 0, 0, 0.374);
+}
+
+.successMessage {
+    border: 2px green;
+    background-color: rgba(0, 255 ,0 ,0.374);
 }
 
 @keyframes popout {

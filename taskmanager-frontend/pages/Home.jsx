@@ -1,16 +1,31 @@
 import styles from '../styles/Home.module.css'
 import Header from '../src/components/header'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export default function Home () {
+    const router = useNavigate()
+
+    const handleToken = () => {
+        const token = sessionStorage.getItem('taskManager-token')
+
+        if(!token) {
+            router('/')
+        }
+    }
+
+    useEffect(() => {
+        handleToken()
+    }, [])
+
     return (
         <>
-        <div className={styles.mainContainer}>
+        <main className={styles.mainContainer}>
             <Header/>
-            <div className={styles.homeContainer}>
+            <section className={styles.homeContainer}>
                 <Outlet/>
-            </div>
-        </div>
+            </section>
+        </main>
         </>
     )
 }

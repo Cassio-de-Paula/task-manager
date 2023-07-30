@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import styles from '../styles/TaskLists.module.css'
+import btn from '../src/components/button/index.module.css'
 import taskListService from "../src/services/taskListService"
 import taskService from "../src/services/taskService"
 import { tasksHook, taskListHook } from "../hooks/hooks"
@@ -8,7 +9,6 @@ import TaskListForm from "../src/components/taskListForm"
 
 export default function TaskLists() {
     const [showTaskLists, setShowTaskLists] = useState([])
-    const [errorMessage, setErrorMessage] = useState('')
     const [taskListId, setTaskListId] = useState('')
     const [methodPost, setMethodPost] = useState(true)
     const [message, setMessage] = useState(false)
@@ -52,8 +52,6 @@ export default function TaskLists() {
 
             if(taskListResponse.status === 200) {
                 handleGetTaskLists()
-            } else {
-                setErrorMessage('Oops, parece que algo deu errado!')
             }
 
         } else {
@@ -64,8 +62,6 @@ export default function TaskLists() {
     
                 if(taskListResponse.status === 200) {
                     handleGetTaskLists()
-                } else {
-                    setErrorMessage('Oops, parece que algo deu errado!')
                 }
             }
         }
@@ -81,18 +77,18 @@ export default function TaskLists() {
 
     return (
         <>
-        <TaskListForm methodPost={methodPost} formId={taskListId} errorMessage={errorMessage} handleGetTaskLists={handleGetTaskLists}/>
+        <TaskListForm methodPost={methodPost} formId={taskListId} handleGetTaskLists={handleGetTaskLists}/>
            {
                message ? (
                    <p className={styles.message}>Pelo visto você ainda não possui nenhuma lista de tarefas <br /> cire sua primeira lista usando a caixa ao lado!</p>
             ) : (
-                <div className={styles.taskListsContainer}>
+                <section className={styles.taskListsContainer}>
                     {
 
                     showTaskLists.map((taskList) => (
                         <div className={styles.taskListContainer} key={taskList.id} style={{backgroundColor:`${taskList.color}`}}>
                             <Link to={`${taskList.id}/tasks`}> 
-                            <button className={styles.taskListName}><p className={styles.text}>{taskList.name}</p></button>
+                            <button className={btn.btn}><p className={styles.text}>{taskList.name}</p></button>
                             </Link>
                             <p className={styles.text}>
                                {`Você possui ${taskList.taskCounter} tarefas nessa lista`}
@@ -104,7 +100,7 @@ export default function TaskLists() {
                         </div>
                     ))
                     }
-                </div>
+                </section>
                 )
            }
         </>

@@ -14,7 +14,6 @@ export default function Tasks () {
     const location = useLocation()
 
     const [postMethod, setPostMethod] = useState(true)
-    const [errorMessage, setErrorMessage] = useState(false)
     const [message, setMessage] = useState(false)
     const [showTasks, setShowTasks] = useState([])
     const [formId, setFormId] = useState('')
@@ -41,8 +40,6 @@ export default function Tasks () {
             const {status} = await taskService.updateTask(taskListId, params)
             if(status === 200) {
                 handleGetTasks()
-            } else {
-                setErrorMessage(true)
             }
 
         } else {
@@ -50,8 +47,6 @@ export default function Tasks () {
             const {status} = await taskService.updateTask(taskListId, params)
             if(status === 200) {
                 handleGetTasks()
-            } else {
-                setErrorMessage(true)
             }
         }
     }
@@ -63,8 +58,6 @@ export default function Tasks () {
 
         if(status === 200) {
             handleGetTasks()
-        } else {
-            setErrorMessage(true)
         }
     }
 
@@ -88,9 +81,11 @@ export default function Tasks () {
         })
 
         
-        tasks = tasks.filter((taskIds, index) => {
+        tasks = tasks.filter((taskIds) => {
             return taskIds !== undefined
         })
+
+        console.log(tasks)
         
         setTaskIds(tasks)
     }
@@ -103,12 +98,12 @@ export default function Tasks () {
 
     return (
         <>
-        <TaskForm postMethod={postMethod} handleGetTasks={handleGetTasks} taskListId={formId} errorMessage={errorMessage}/>
+        <TaskForm postMethod={postMethod} handleGetTasks={handleGetTasks} taskListId={formId}/>
             {
                 message ? (
                     <p className={styles.message}>Parece que você ainda não possui tarefas <br /> crie uma usando a caixa ao lado!</p>
                 ) : (
-                    <div className={styles.tasksContainer}>
+                    <section className={styles.tasksContainer}>
                         {
                             showTasks.map((task) => (
                                 <div className={task.done ? styles.done : styles.taskContainer} key={task.id}>
@@ -142,7 +137,7 @@ export default function Tasks () {
                                 </div>
                             ))
                         }
-                    </div>
+                    </section>
                 )
             }
         </>

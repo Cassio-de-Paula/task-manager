@@ -19,11 +19,10 @@
 }
 
 .userProfile {
-    width: 80px;
-    height: 80px;
-    margin-right: 10px;
-    background-color: white;
-    border-radius: 50%;
+    width: max-content;
+    height: max-content;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 a:hover {
@@ -44,7 +43,7 @@ a:link {
     align-items: center;
     align-self: last baseline;
     margin-top: 100px;
-    margin-right: 15px;
+    margin-right: 20px;
     width: 20%;
     max-height: 50vh;
     border-radius: 10px;
@@ -53,6 +52,20 @@ a:link {
     &:a {
         text-decoration: none;
     }
+}
+
+.userIcon {    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    padding-top: 16px;
+    margin-right: 10px;
 }
 
 .notifications {

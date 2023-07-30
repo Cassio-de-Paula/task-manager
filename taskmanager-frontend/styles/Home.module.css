@@ -10,9 +10,8 @@
 }
 
 .homeContainer {
+    height: 80vh;
     display: flex;
     justify-content: space-evenly;
-    flex-wrap: wrap;
-    overflow-wrap: normal;
-    margin-top: 100px;
+    align-items: center;
 }
