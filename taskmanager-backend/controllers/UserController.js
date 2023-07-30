@@ -2,6 +2,12 @@ const userService = require("../services/userService");
 const bcrypt = require("bcrypt");
 
 module.exports = {
+  getUser: async (req, res) => {
+    const user = req.user;
+
+    return res.status(200).json(user);
+  },
+
   register: async (req, res) => {
     const { userName, email, birth, password } = req.body;
 

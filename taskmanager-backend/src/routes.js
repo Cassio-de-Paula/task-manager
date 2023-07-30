@@ -7,6 +7,7 @@ const TaskController = require("../controllers/TaskController");
 const { ensureAuth } = require("../middlewares/auth");
 
 // Rotas de Users
+routes.get("/user", ensureAuth, UserController.getUser);
 routes.post("/register", UserController.register);
 routes.post("/login", UserController.login);
 routes.put("/myAccount", ensureAuth, UserController.updateUser);

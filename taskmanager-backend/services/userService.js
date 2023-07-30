@@ -18,6 +18,7 @@ module.exports = {
         email,
       },
     });
+
     return user;
   },
 

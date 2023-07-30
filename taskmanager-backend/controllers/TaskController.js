@@ -100,28 +100,32 @@ module.exports = {
   getTasksWithNotifications: async (req, res) => {
     const userId = req.user.id;
 
-    try {
-      const taskLists = await taskListService.getLists({ userId });
+    const taskLists = await taskListService.getLists({ userId });
 
+    try {
       const taskList = await Promise.all(
         taskLists.map(async (taskList) => {
           return await taskService.getTasks(taskList.id);
         })
       );
 
-      const notifications = await Promise.all(
+      const taskNotifications = await Promise.all(
         taskList.map(async (tasks) => {
           return await Promise.all(
             tasks.map(async (task) => {
               const today = new Date();
-              const difference = Math.floor(
-                (task.deadline.getTime() - today.getTime()) /
-                  (1000 * 60 * 60 * 24) +
-                  1
-              );
+              if (task.deadline) {
+                const difference = Math.floor(
+                  (task.deadline.getTime() - today.getTime()) /
+                    (1000 * 60 * 60 * 24) +
+                    1
+                );
 
-              if (difference == task.urgency) {
-                return { taskId: task.id, taskListId: task.taskListId };
+                if (difference == task.urgency) {
+                  return task;
+                } else {
+                  return;
+                }
               } else {
                 return;
               }
@@ -130,7 +134,7 @@ module.exports = {
         })
       );
 
-      return res.status(200).json(notifications);
+      return res.status(200).json(taskNotifications);
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
