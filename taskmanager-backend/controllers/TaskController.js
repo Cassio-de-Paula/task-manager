@@ -5,7 +5,10 @@ const TaskListController = require("./TaskListController");
 
 module.exports = {
   async newTask(req, res) {
-    const data = req.body;
+    const task = req.body;
+    const userId = req.user.id;
+
+    const data = { task, userId };
 
     try {
       const task = await taskService.createTask(data);
@@ -34,15 +37,13 @@ module.exports = {
 
   async searchTask(req, res) {
     const name = req.query.name;
+    const userId = req.user.id;
 
     try {
       const task = await taskService.getTasksByName({
         name,
+        userId,
       });
-
-      if (task.length === 0) {
-        throw new Error("Sem resultados para a pesquisa");
-      }
 
       return res.status(200).json(task);
     } catch (error) {

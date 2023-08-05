@@ -16,11 +16,7 @@ routes.put("/myAccount/password", ensureAuth, UserController.passwordUpdate);
 // Rotas de listas de tarefas
 routes.post("/home/taskLists", ensureAuth, TaskListController.newTaskList);
 routes.get("/home/taskLists", ensureAuth, TaskListController.getTaskLists);
-routes.get(
-  "/home/taskLists/search",
-  ensureAuth,
-  TaskListController.searchTaskLists
-);
+routes.get("/home/search", ensureAuth, TaskListController.searchTaskLists);
 routes.put("/home/taskLists", ensureAuth, TaskListController.saveTaskList);
 
 //Deleta a lista e as tarefas dentro dela ao mesmo tempo, o serviço das taskLists é chamado dentro do controlador de tasks
@@ -37,7 +33,7 @@ routes.get(
   ensureAuth,
   TaskController.getTasks
 );
-routes.get("/home/tasks/search", ensureAuth, TaskController.searchTask);
+routes.get("/home/search", ensureAuth, TaskController.searchTask);
 routes.put(
   "/home/taskLists/:taskListId/tasks",
   ensureAuth,

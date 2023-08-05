@@ -6,7 +6,8 @@ const Task = sequelize.define("tasks", {
   deadline: DataTypes.DATE,
   done: DataTypes.BOOLEAN,
   urgency: DataTypes.INTEGER,
-  taskListId: DataTypes.STRING,
+  taskListId: DataTypes.INTEGER,
+  userId: DataTypes.INTEGER,
 });
 
 module.exports = Task;

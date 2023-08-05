@@ -34,6 +34,16 @@ module.exports = {
         },
         allowNull: false,
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: "users",
+            key: "id",
+          },
+        },
+        allowNull: false,
+      },
       createdAt: {
         type: DataTypes.DATE,
       },

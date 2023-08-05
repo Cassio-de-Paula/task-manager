@@ -54,10 +54,6 @@ module.exports = {
         throw new Error();
       }
 
-      if (taskLists.length == 0) {
-        throw new Error("Sem resultados para a pesquisa");
-      }
-
       return res.status(200).json(taskLists);
     } catch (error) {
       return res.status(400).json({ message: error.message });

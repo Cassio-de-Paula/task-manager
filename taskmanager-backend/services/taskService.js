@@ -17,12 +17,13 @@ module.exports = {
     return tasks;
   },
 
-  getTasksByName: async ({ name }) => {
+  getTasksByName: async ({ name, userId }) => {
     const tasks = await Task.findAll({
       where: {
         name: {
           [Op.iLike]: `%${name}%`,
         },
+        userId,
       },
     });
 
