@@ -34,17 +34,11 @@ module.exports = {
 
   async searchTask(req, res) {
     const name = req.query.name;
-    const { taskListId } = req.params;
 
     try {
       const task = await taskService.getTasksByName({
         name,
-        taskListId,
       });
-
-      if (!taskListId) {
-        throw new Error();
-      }
 
       if (task.length === 0) {
         throw new Error("Sem resultados para a pesquisa");

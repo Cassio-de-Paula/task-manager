@@ -37,11 +37,7 @@ routes.get(
   ensureAuth,
   TaskController.getTasks
 );
-routes.get(
-  "/home/taskLists/:taskListId/tasks/search",
-  ensureAuth,
-  TaskController.searchTask
-);
+routes.get("/home/tasks/search", ensureAuth, TaskController.searchTask);
 routes.put(
   "/home/taskLists/:taskListId/tasks",
   ensureAuth,
