@@ -14,62 +14,14 @@
     width: fit-content;
 }
 
-.taskListsContainer {
+.updateSection {
+    width: 100vw;
+    height: 110vh;
+    position: absolute;
+    background-color: rgba(0,0,0,0.7);
     display: flex;
-    flex-wrap: wrap;
-    max-height: 400px;
-    width: 45%;
-    border-radius: 10px;
-    border: 2px solid white;
-    overflow-y: scroll;
-}
-
-.taskListsContainer::-webkit-scrollbar {
-    background-color: transparent;
-}
-
-.taskListsContainer::-webkit-scrollbar-corner {
-    display: none;
-}
-
-.taskListsContainer::-webkit-scrollbar-thumb {
-    background-color: rgba(255,255,255,0.5);
-    border-radius: 10px;
-}
-
-.taskListContainer {
-    height: fit-content;
-    width: 42%;
-    padding: 10px;
-    margin: 15px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: center;
+    align-self: flex-end;
+    margin: 0;
 }
-
-.text {
-  color: rgb(131, 131, 131);
-  text-align: center;
-  font-family: 'Roboto', sans-serif;
-}
-
-  .messageContainer {
-    display: flex;
-    justify-content: center;
-  }
-
-  .btnContainer {
-    display: flex;
-  }
-
-  .deleteBtn, .editBtn {
-    font-size: 8px;
-    padding: 5px;
-    color: rgb(131, 131, 131);
-    background-color: transparent;
-    border: 1px solid rgb(131, 131, 131);
-    border-radius: 5px;
-    margin: 10px;
-  }

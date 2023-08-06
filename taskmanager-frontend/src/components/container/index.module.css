@@ -1,0 +1,103 @@
+.resultsContainer {
+    max-height: 70%;
+    height: 70%;
+    width: 40%;
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    padding: 10px;
+    margin-bottom: 15px;
+    gap: 10px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.resultsContainer::-webkit-scrollbar {
+    background-color: transparent;
+}
+
+.resultsContainer::-webkit-scrollbar-corner {
+    display: none;
+}
+
+.resultsContainer::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 10px;
+}
+
+.taskListContainer, .taskContainer, .done {
+    background-color: rgba(255,255,255,0.5);
+    width: 47%;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+    gap: 8px;
+}
+
+.description {
+    font-size: 15px;
+}
+
+
+.done {
+    border: 2px solid green;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.taskTitle {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.taskContainer {
+    border: 2px solid white;
+}
+
+.taskDate, .taskUrgency {
+    font-size: 12px;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.title, .titleDone {
+    &:hover {
+        scale: 1.1;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+}
+
+.titleDone {
+    text-decoration: line-through;
+}
+
+.tool, .checked {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 20px;
+    margin: 5px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid #909090;
+    &:hover {
+        color: #ffffff;
+        background-color: rgb(154,208,255);
+        transition: 0.3s;
+        scale: 1.1;
+        cursor: pointer;
+        border: none;
+    }
+}
+
+.checked {
+    background-color: green;
+}

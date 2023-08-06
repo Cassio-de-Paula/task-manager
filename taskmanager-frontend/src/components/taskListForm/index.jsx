@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styles from './index.module.css'
-import btn from '../button/index.module.css'
 import Message from '../message'
+import btn from '../button/index.module.css'
 import taskListService from '../../services/taskListService'
 
 export default function TaskListForm (props) {
@@ -82,12 +82,12 @@ export default function TaskListForm (props) {
         <>
         <section className={styles.container}>
         <form id={props.formId} method={props.methodPost ? 'post' : 'put'} className={props.methodPost ? styles.postForm : styles.putForm} onSubmit={props.methodPost ? handleTaskListSubmit : handleTaskListUpdate}>
-                <label htmlFor="taskListName" className={styles.label}> {props.methodPost ? 'Nova Lista' : 'Editar Lista'}
+                <label htmlFor="taskListName" className={styles.label}> <p className={props.methodPost ? styles.text : styles.editText}>{props.methodPost ? 'Nova Lista' : 'Editar Lista'}</p>
                     <input type="text" id='taskListName' name='taskListName' className={styles.input} placeholder='Insira o nome da lista' maxLength={30}/>
                 </label>
                 <br />
                 <br />
-                <p className={styles.text}>Escolha uma cor para a Lista</p>
+                <p className={props.methodPost ? styles.text : styles.editText} >Escolha uma cor para a Lista</p>
                 <div className={styles.colorSection}>
                     <span className={styles.radio}>
                         <label style={{backgroundColor:'#9be8d8'}}>
@@ -115,7 +115,7 @@ export default function TaskListForm (props) {
                         </label>
                     </span>
                 </div>
-                <button type='submit' className={btn.btn}><p>SALVAR</p></button>
+                <button type='submit' className={props.methodPost ? btn.btn : styles.editBtn}><p className={props.methodPost ? styles.text : styles.editText}>{props.methodPost ? 'CRIAR' : 'SALVAR'}</p></button>
                 </form>
                 {
                     errorMessage ? (

@@ -46,8 +46,6 @@ export default function TaskForm(props) {
                 urgency = getUrgency
                 const difference = Math.round((date.getTime() - today.getTime())/(1000*60*60*24)) + 1
 
-                console.log(difference)
-
 
                 if(date < today || date === null ) {
                     setErrorMessage('Insira uma data válida!')

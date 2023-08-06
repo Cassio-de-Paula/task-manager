@@ -52,13 +52,19 @@
     }
 }
 
-.text{
+.text, .editText{
     font-weight: bold;
-    color: rgb(131, 131, 131);
     width: 100%;
-    margin-bottom: 15px;
     font-family: 'Roboto';
     text-align: center;
+}
+
+.text {
+  color: #909090;
+}
+
+.editText {
+  color: #ffffff;
 }
 
 .input {
@@ -76,6 +82,7 @@
 .colorSection {
     list-style: none;
     margin-bottom: 30px;
+    margin-top: 15px;
     padding: 0;
   }
   
@@ -122,4 +129,21 @@
   .radio label input[type=radio]:checked {
     border: 2px solid rgb(131, 131, 131);
     border-radius: 50%;
+  }
+
+  .editBtn {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+    margin: 15px;
+    background-color: transparent;
+    font-weight: bold;
+    transition: 0.3s;
+    &:hover{
+        background-color: rgb(154, 208, 255);
+        cursor: pointer;
+        color: white;
+        border: rgb(154, 208, 255);
+        scale: 1.2;
+    }
   }
