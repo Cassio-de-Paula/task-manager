@@ -5,10 +5,10 @@ const TaskListController = require("./TaskListController");
 
 module.exports = {
   async newTask(req, res) {
-    const task = req.body;
+    const data = req.body;
     const userId = req.user.id;
 
-    const data = { task, userId };
+    data.userId = userId;
 
     try {
       const task = await taskService.createTask(data);
