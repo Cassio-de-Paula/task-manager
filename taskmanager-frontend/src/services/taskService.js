@@ -33,11 +33,11 @@ const taskService = {
     return res;
   },
 
-  getTasksByName: async (taskListId, name) => {
+  getTasksByName: async (name) => {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .get(`/home/taskLists/${taskListId}/tasks/search?name=${name}`, {
+      .get(`/home/tasks/search?name=${name}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -46,7 +46,7 @@ const taskService = {
         return error.response;
       });
 
-    return res;
+    return res.data;
   },
 
   removeTask: async (taskListId, id) => {

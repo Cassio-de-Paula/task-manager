@@ -1,19 +1,21 @@
 import styles from './index.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faSearch } from '@fortawesome/free-solid-svg-icons'
 import Logo from '../logoComponent'
 import '../logoComponent/index.module.css'
 import { useEffect, useState } from 'react'
 import taskListService from '../../services/taskListService'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import taskService from '../../services/taskService'
 import NotificationSign from '../notificationSign'
 import Aos from 'aos'
 
 export default function Header () {
+    const router = useNavigate()
     const [showOptions, setShowOptions] = useState(false)
     const [taskListIds, setTaskListIds] = useState([])
     const [taskListElement, setTaskListElement] = useState([])
+    const [name, setName] = useState('')
 
     const handleUser = () => {
         if(showOptions) {
@@ -51,6 +53,16 @@ export default function Header () {
     }
     }
 
+    const handleSearch = (ev) => {
+        ev.preventDefault()
+
+        const formData = new FormData(ev.currentTarget)
+        const name = formData.get('searchBar')
+        setName(name)
+
+        router(`/home/search?name=${name}`)
+    }
+
     useEffect(() => {
         handleNotifications()
         handleTaskLists()
@@ -64,7 +76,12 @@ export default function Header () {
                 <Logo className={styles.logo}/>
             </a>
             <div className={styles.inputContainer}>
-                <input type="text" name='searchBar' className={styles.searchInput}/>
+                <form onSubmit={handleSearch}>
+                <input type="text" name='searchBar' id='name' placeholder='Pesquise por tarefas e listas...' className={styles.searchInput}/>
+                <button type='submit' className={styles.submitBtn}>
+                <FontAwesomeIcon icon={faSearch} color='#ffffff' size='lg' className={styles.searchIcon}/>
+                </button>
+                </form>
             </div>
             <div className={styles.userProfile} onClick={handleUser}>
                 {
@@ -81,7 +98,7 @@ export default function Header () {
         </header>
             {
                 showOptions ? (
-                    <section className={styles.profileSection} data-aos='fade-left' data-aos-duration='200'>
+                    <section className={styles.profileSection} data-aos='fade-down' data-aos-duration='200'>
                         <Link to={'/home/myAccount'}>
                             <p>Minha conta</p>
                         </Link>
@@ -113,4 +130,4 @@ export default function Header () {
                 } 
         </>
     )
-} 
+}

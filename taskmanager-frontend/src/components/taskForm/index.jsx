@@ -30,6 +30,7 @@ export default function TaskForm(props) {
 
         const formData = new FormData(ev.currentTarget)
         const name = formData.get('taskName')
+        console.log(name)
         const getUrgency = formData.get('urgency')
         const getDate = formData.get('deadline')
         let deadline = null
@@ -43,7 +44,9 @@ export default function TaskForm(props) {
             if(addDateAndUrgency) {
                 const date = getDate ? new Date(getDate) : null
                 urgency = getUrgency
-                const difference = Math.floor((date.getTime() - today.getTime())/(1000*60*60*24)) + 1
+                const difference = Math.round((date.getTime() - today.getTime())/(1000*60*60*24)) + 1
+
+                console.log(difference)
 
 
                 if(date < today || date === null ) {
@@ -147,7 +150,7 @@ export default function TaskForm(props) {
         } else {
             const data = {id, name, deadline, urgency}
 
-            Object.keys(data).forEach(key => data[key] == '' && delete data[key])
+            Object.keys(data).forEach(key => data[key] == '' || data[key] == null && delete data[key])
 
             const {status} = await taskService.updateTask(taskListId, data)
     
@@ -170,7 +173,7 @@ export default function TaskForm(props) {
         <section className={styles.container}>
         <form id={props.taskListId} method={props.postMethod ? 'post' : 'put'} className={props.postMethod ? styles.postForm : styles.putForm} onSubmit={props.postMethod ? handleTaskSubmit : handleTaskUpdate}>
                 <label className={styles.label}> {props.postMethod ? 'Nova Tarefa' : 'Editar Tarefa'}
-                    <input type="text" name='taskName' className={styles.input}/>
+                    <input type="text" name='taskName' className={styles.input} maxLength={15}/>
                 </label>
                 <button type='button' className={btn.btn} onClick={handleSetOptions}><p>Adicionar prazo e aviso</p></button>
                 {

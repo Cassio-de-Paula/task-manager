@@ -46,7 +46,7 @@ const taskListService = {
         return error.response;
       });
 
-    return res;
+    return res.data;
   },
 
   removeTaskList: async (id) => {

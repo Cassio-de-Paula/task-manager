@@ -33,36 +33,17 @@ export function dateFormat(deadline) {
   return newDeadline;
 }
 
-export async function taskNotifications() {
-  const { data } = await taskListService.getTaskLists();
+export async function search(name) {
+  const taskListResults = await taskListService.getTaskListsByName(name);
+  const taskResults = await taskService.getTasksByName(name);
 
-  const notifications = await Promise.all(
-    data.map(async (taskList) => {
-      const taskLists = await tasksHook.tasks(taskList.id);
-      return taskLists;
+  await Promise.all(
+    taskListResults.map(async (taskList) => {
+      let counter = await tasksHook.tasks(taskList.id);
+
+      taskList.taskCounter = counter.length;
     })
   );
 
-  const filteredTasks = notifications.map((taskList) => {
-    const filteredTasksList = taskList.filter((task) => {
-      const deadline = new Date(task.deadline).getTime();
-      const today = new Date().getTime();
-      const difference = Math.floor(
-        (deadline - today) / task.urgency / (1000 * 60 * 60 * 24)
-      );
-      return difference === 0;
-    });
-    return filteredTasksList;
-  });
-
-  const taskListIds = [];
-
-  filteredTasks.map((taskList) => {
-    taskList.map((task) => {
-      let taskListId = task.taskListId;
-      taskListIds.push(taskListId);
-    });
-  });
-
-  return { filteredTasks, taskListIds, data };
+  return { taskListResults, taskResults };
 }

@@ -7,6 +7,7 @@ import TaskLists from '../pages/TaskLists'
 import HomeComponent from './components/homeComponent'
 import Tasks from '../pages/Tasks'
 import Profile from '../pages/Profile'
+import SearchResults from '../pages/Search'
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             {
                 path: '/home/myAccount',
                 element: <Profile/>
+            },
+            {
+                path: '/home/search',
+                element: <SearchResults/>
             }
 
         ]

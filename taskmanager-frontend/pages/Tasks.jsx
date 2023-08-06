@@ -84,8 +84,6 @@ export default function Tasks () {
         tasks = tasks.filter((taskIds) => {
             return taskIds !== undefined
         })
-
-        console.log(tasks)
         
         setTaskIds(tasks)
     }
@@ -130,9 +128,9 @@ export default function Tasks () {
                                         )
                                     }
                                     <div className={styles.taskBtnContainer}>
-                                        <button className={task.done ? styles.checked : styles.tool} id={task.id} onClick={handleTaskDone}><FontAwesomeIcon icon={faCheck}/></button>
-                                        <button className={styles.tool} id={task.id} onClick={handleEditScreen}><FontAwesomeIcon icon={faPencil}/></button>
-                                        <button className={styles.tool} id={task.id} onClick={handleDeleteTask}><FontAwesomeIcon icon={faTrash}/></button>
+                                        <button className={task.done ? styles.checked : styles.tool} id={task.id} onClick={handleTaskDone}><FontAwesomeIcon icon={faCheck} color='#909090'/></button>
+                                        <button className={styles.tool} id={task.id} onClick={handleEditScreen}><FontAwesomeIcon icon={faPencil} color='#909090'/></button>
+                                        <button className={styles.tool} id={task.id} onClick={handleDeleteTask}><FontAwesomeIcon icon={faTrash} color='#909090'/></button>
                                     </div>
                                 </div>
                             ))

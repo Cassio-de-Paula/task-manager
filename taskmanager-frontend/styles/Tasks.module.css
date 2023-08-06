@@ -6,8 +6,8 @@
     text-align: center;
     font-weight: bold;
     font-family: 'Roboto', sans-serif;
-    color: rgb(131,131,131);
-    font-size: 20px;
+    color: #909090;
+    font-size: 15px;
     background-color: rgba(255,255,255,0.5);
     padding: 15px;
     border-radius: 10px;
@@ -16,11 +16,11 @@
 
 .tasksContainer {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     padding: 10px;
-    height: 420px;
-    width: 45%;
+    width: 50%;
+    max-height: 420px;
+    gap: 10px;
     border-radius: 10px;
     border: 2px solid white;
     overflow-y: scroll;
@@ -41,7 +41,6 @@
 
 .taskContainerBtn {
     height: 80px;
-    margin: 15px;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -54,7 +53,7 @@
 
 .taskContainer, .done {
     background-color: rgba(255,255,255,0.5);
-    width: 42%;
+    width: 47%;
     height: 130px;
     display: flex;
     flex-direction: column;
@@ -62,11 +61,11 @@
     padding: 10px;
     border-radius: 10px;
     gap: 8px;
-    margin: 10px;
 }
 
 .taskTitle {
     display: flex;
+    flex-direction: row-reverse;
 }
 
 .taskContainer {
@@ -81,12 +80,12 @@
     text-decoration: line-through;
 }
 
-.taskDate, .taskUrgency {
-    font-size: 12px;
+.taskDone, .taskText {
+    margin: 0px 10px 0px 0px;
 }
 
-.description {
-    font-size: 8px;
+.taskDate, .taskUrgency {
+    font-size: 12px;
 }
 
 .messageContainer {
@@ -103,10 +102,11 @@
     margin: 5px;
     background-color: transparent;
     border-radius: 5px;
-    border: 1px solid rgb(131,131,131);
+    border: 1px solid #909090;
     &:hover {
         color: #ffffff;
         background-color: rgb(154,208,255);
+        transition: 0.3s;
         scale: 1.1;
         cursor: pointer;
         border: none;
