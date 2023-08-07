@@ -100,15 +100,15 @@ export default function Header () {
                 showOptions ? (
                     <section className={styles.profileSection} data-aos='fade-down' data-aos-duration='200'>
                         <Link to={'/home/myAccount'}>
-                            <p>Minha conta</p>
+                            <p className={styles.text}>Minha conta</p>
                         </Link>
                         <div className={styles.notifications}>
-                            <p>Notificações</p>
+                            <p className={styles.text}>Notificações</p>
                            
                             {
                                 taskListElement.map((taskList) => (
                                     <Link to={`/home/taskLists/${taskList.id}/tasks`}>
-                                    <div className={styles.taskList} style={{backgroundColor:`${taskList.color}`}}><p>{taskList.name}</p>
+                                    <div className={styles.taskList} style={{backgroundColor:`${taskList.color}`}}><p className={styles.text}>{taskList.name}</p>
                                     {
                                         taskListIds.includes((taskList.id)) ? (
                                            <NotificationSign/>

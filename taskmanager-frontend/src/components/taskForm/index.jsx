@@ -30,7 +30,6 @@ export default function TaskForm(props) {
 
         const formData = new FormData(ev.currentTarget)
         const name = formData.get('taskName')
-        console.log(name)
         const getUrgency = formData.get('urgency')
         const getDate = formData.get('deadline')
         let deadline = null
@@ -99,6 +98,9 @@ export default function TaskForm(props) {
     const handleTaskUpdate = async (ev) => {
         ev.preventDefault()
         const {id} = ev.currentTarget
+        const taskList = ev.currentTarget.getAttribute('tasklist')
+
+        console.log(id)
 
         const formData = new FormData(ev.currentTarget)
         const name = formData.get('taskName')
@@ -109,7 +111,7 @@ export default function TaskForm(props) {
 
         if(addDateAndUrgency) {
             const date = getDate ? new Date(getDate) : null
-            const difference = Math.floor((date.getTime() - today.getTime())/(1000*60*60*24)) + 1
+            const difference = Math.round((date.getTime() - today.getTime())/(1000*60*60*24)) + 1
 
             if(date < today || date === null ) {
                 setErrorMessage('Insira uma data válida ou desmarque a caixa!')
@@ -128,9 +130,13 @@ export default function TaskForm(props) {
 
                 const data = {id, name, deadline, urgency}
 
-                Object.keys(data).forEach(key => data[key] == null || data[key] == '' && delete data[key])
+                for (let key in data) {
+                    if (data[key] === null || data[key] === '') {
+                      delete data[key];
+                    }
+                  }
 
-                const {status} = await taskService.updateTask(taskListId, data)
+                const {status} = await taskService.updateTask(taskList, data)
     
                 if(status === 200) {
                     props.handleGetTasks()
@@ -148,9 +154,12 @@ export default function TaskForm(props) {
         } else {
             const data = {id, name, deadline, urgency}
 
-            Object.keys(data).forEach(key => data[key] == '' || data[key] == null && delete data[key])
-
-            const {status} = await taskService.updateTask(taskListId, data)
+            for (let key in data) {
+                if (data[key] === null || data[key] === '') {
+                  delete data[key];
+                }
+              }
+            const {status} = await taskService.updateTask(taskList, data)
     
             if(status === 200) {
                 props.handleGetTasks()
@@ -169,32 +178,33 @@ export default function TaskForm(props) {
 
     return (
         <section className={styles.container}>
-        <form id={props.taskListId} method={props.postMethod ? 'post' : 'put'} className={props.postMethod ? styles.postForm : styles.putForm} onSubmit={props.postMethod ? handleTaskSubmit : handleTaskUpdate}>
-                <label className={styles.label}> {props.postMethod ? 'Nova Tarefa' : 'Editar Tarefa'}
+        <form id={props.formId} tasklist={props.taskListId} method={props.postMethod ? 'post' : 'put'} className={props.postMethod ? styles.postForm : styles.putForm} onSubmit={props.postMethod ? handleTaskSubmit : handleTaskUpdate}>
+                <label className={styles.label}> <p className={props.postMethod ? styles.text : styles.editText}>{props.postMethod ? 'Nova Tarefa' : 'Editar Tarefa'}</p>
                     <input type="text" name='taskName' className={styles.input} maxLength={15}/>
                 </label>
-                <button type='button' className={btn.btn} onClick={handleSetOptions}><p>Adicionar prazo e aviso</p></button>
+                <button type='button' className={props.postMethod ? btn.btn : styles.editBtn} onClick={handleSetOptions}><p className={props.postMethod ? styles.text : styles.editText}>Adicionar prazo e aviso</p></button>
                 {
                     addDateAndUrgency ? (
                     <>
-                    <label className={styles.label}> Prazo 
+                    <label className={styles.label}><p className={props.postMethod ? styles.text : styles.editText}>Prazo</p> 
                         <input type="date" name='deadline' className={styles.input}/>
                     </label>
-                    <label className={styles.label}> Aviso
+                    <label className={styles.label}> <p className={props.postMethod ? styles.text : styles.editText}>Aviso</p>
                         <input type="range" min={0} max={15} name='urgency' className={styles.range} onInput={(ev) => {setRangeValue(ev.currentTarget.value)}}/>
-                        <span>{rangeValue}</span>
-                        <p className={styles.description}>Informe quantos dias antes do prazo <br /> você gostaria de ser avisado desta tarefa</p>
+                        <span className={props.postMethod ? styles.text : styles.editText}>{rangeValue}</span>
+                        <p className={props.postMethod ? styles.description : styles.descriptionEdit}>Informe quantos dias antes do prazo <br /> você gostaria de ser avisado desta tarefa</p>
                     </label>
                     </>
                     ) : (
-                        <></>
+                        <>
+                        </>
                     )
                 }
-                <button type='submit' className={btn.btn}><p className={styles.text}>{props.postMethod ? 'CRIAR' : 'SALVAR'}</p></button>
+                <button type='submit' className={props.postMethod ? btn.btn : styles.editBtn}><p className={props.postMethod ? styles.text : styles.editText}>{props.postMethod ? 'CRIAR' : 'SALVAR'}</p></button>
                 </form>
                 {
                     errorMessage ? (
-                            <Message message={errorMessage} error={true}/>
+                        <Message message={errorMessage} error={true}/>
                     ) : (
                         <>
                         </>

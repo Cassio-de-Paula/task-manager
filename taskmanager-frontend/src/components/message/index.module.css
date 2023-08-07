@@ -1,5 +1,6 @@
 
 .errorMessage, .successMessage {
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     font-weight: bold;
     padding: 10px;

@@ -57,7 +57,11 @@ export default function TaskListForm (props) {
         
         const data = {name, color}
 
-        Object.keys(data).forEach(key => data[key] == null || data[key] == '' && delete data[key])
+        for (let key in data) {
+            if (data[key] === null || data[key] === '') {
+              delete data[key];
+            }
+          }
 
         const params = {id, data}
 

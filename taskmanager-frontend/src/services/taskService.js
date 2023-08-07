@@ -81,11 +81,11 @@ const taskService = {
     return res;
   },
 
-  updateTask: async (taskListId, data) => {
+  updateTask: async (taskList, data) => {
     const token = sessionStorage.getItem("taskManager-token");
 
     const res = await api
-      .put(`/home/taskLists/${taskListId}/tasks`, data, {
+      .put(`/home/taskLists/${taskList}/tasks`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

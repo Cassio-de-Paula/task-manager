@@ -8,6 +8,9 @@
 }
 
 .messageContainer {
+    font-family: 'Roboto', sans-serif;
+    color: #909090;
+    font-weight: bold;
     background-color: rgba(255, 255, 255, 0.7);
     width: fit-content;
     height: fit-content;
@@ -32,9 +35,27 @@
     position: absolute;
     background-color: rgba(0,0,0,0.7);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     align-self: flex-end;
     margin: 0;
 }
 
+.closeBtn {
+    display: flex;
+    justify-content: end;
+    width: 35%;
+}
+
+.xBtn {
+    border: none;
+    background-color: transparent;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    &:hover {
+        cursor: pointer;
+    }
+}

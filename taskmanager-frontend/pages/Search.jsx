@@ -18,6 +18,7 @@ export default function SearchResults () {
     const [showTaskListForm, setShowTaskListForm] = useState(false)
     const [showTaskForm, setShowTaskForm] = useState(false)
     const [formId, setFormId] = useState('')
+    const [taskListId, setTaskListId] = useState('')
     const [taskListsMessage, setTaskListsMessage] = useState('Sem resultados para a pesquisa')
     const [tasksMessage, setTasksMessage] = useState('Sem resultados para a pesquisa')
     
@@ -58,8 +59,9 @@ export default function SearchResults () {
     }
     }
 
-    const handleOpenTaskForm = ({id, isTaskFormOpen}) => {
+    const handleOpenTaskForm = ({id, taskListId, isTaskFormOpen}) => {
         setFormId(id)
+        setTaskListId(taskListId)
         setShowTaskForm(isTaskFormOpen)
     }
 
@@ -104,8 +106,9 @@ export default function SearchResults () {
         }
         {
             showTaskForm ? (
-                <section className={styles.updateSection} onClick={handleCloseForm}>
-                    <TaskForm/>
+                <section className={styles.updateSection}>
+                    <span className={styles.closeBtn}><button className={styles.xBtn} onClick={handleCloseForm}>x</button></span>
+                    <TaskForm formId={formId} taskListId={taskListId} handleGetTasks={handleSearch}/>
                 </section>
             ) : (
                 <>
@@ -114,8 +117,9 @@ export default function SearchResults () {
         }
         {
             showTaskListForm ? (
-                <section className={styles.updateSection} onClick={handleCloseForm}>
-                    <TaskListForm/>
+                <section className={styles.updateSection}>
+                    <span className={styles.closeBtn}><button className={styles.xBtn} onClick={handleCloseForm}>x</button></span>
+                    <TaskListForm formId={formId} handleGetTaskLists={handleSearch}/>
                 </section>
             ) : (
                 <>

@@ -33,15 +33,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
     border-radius: 10px;
     gap: 8px;
 }
-
-.description {
-    font-size: 15px;
-}
-
 
 .done {
     border: 2px solid green;
@@ -51,14 +47,27 @@
 .taskTitle {
     display: flex;
     flex-direction: row-reverse;
+    width: 100%;
+    justify-content: center;
 }
+
+.description {
+    font-family: 'Roboto', sans-serif;
+    color: #909090;
+    font-weight: bold;
+    text-align: center;
+}
+
 
 .taskContainer {
     border: 2px solid white;
 }
 
-.taskDate, .taskUrgency {
+.taskDate, .taskUrgency, .title {
     font-size: 12px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    color: #909090;
 }
 
 .btnContainer {
@@ -67,6 +76,10 @@
 }
 
 .title, .titleDone {
+    color: #909090;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
     &:hover {
         scale: 1.1;
         cursor: pointer;
