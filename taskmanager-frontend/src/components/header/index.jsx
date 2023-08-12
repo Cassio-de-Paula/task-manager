@@ -1,13 +1,12 @@
 import styles from './index.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faSearch, faBell } from '@fortawesome/free-solid-svg-icons'
 import Logo from '../logoComponent'
 import '../logoComponent/index.module.css'
 import { useEffect, useState } from 'react'
 import taskListService from '../../services/taskListService'
 import { Link, useNavigate } from 'react-router-dom'
 import taskService from '../../services/taskService'
-import NotificationSign from '../notificationSign'
 import Aos from 'aos'
 
 export default function Header () {
@@ -83,17 +82,21 @@ export default function Header () {
                 </button>
                 </form>
             </div>
+            <div className={styles.userProfileContainer}>
             <div className={styles.userProfile} onClick={handleUser}>
-                {
+                <span className={styles.userIcon}>
+                    <FontAwesomeIcon icon={faUser} color='#9ad0ff' size='4x'/>
+                </span>
+            </div>
+            {
                     taskListIds.length > 0 ? (
-                        <NotificationSign/>
+                        <div className={styles.notificationSignUser}>
+                            <FontAwesomeIcon icon={faBell} color='#ffffff'/>
+                        </div>
                         ) : (
                             <></>
                         )
                 }
-                <span className={styles.userIcon}>
-                    <FontAwesomeIcon icon={faUser} color='#9ad0ff' size='4x'/>
-                </span>
             </div>
         </header>
             {
@@ -108,10 +111,12 @@ export default function Header () {
                             {
                                 taskListElement.map((taskList) => (
                                     <Link to={`/home/taskLists/${taskList.id}/tasks`}>
-                                    <div className={styles.taskList} style={{backgroundColor:`${taskList.color}`}}><p className={styles.text}>{taskList.name}</p>
+                                    <div className={styles.taskList} style={{backgroundColor:`${taskList.color}`}} key={taskList.id}><p className={styles.text}>{taskList.name}</p>
                                     {
                                         taskListIds.includes((taskList.id)) ? (
-                                           <NotificationSign/>
+                                            <div className={styles.notificationSign}>
+                                                <FontAwesomeIcon icon={faBell} color='#ffffff'/>
+                                            </div>
                                         ) : (
                                             <>
                                             </>

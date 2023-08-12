@@ -30,6 +30,9 @@ export default function LoginScreen () {
             }, 1500);
         } else {
             setErrorMessage('Usuário inválido!')
+            setTimeout(() => {
+                setErrorMessage('')
+            }, 1500);
         }
     }
 

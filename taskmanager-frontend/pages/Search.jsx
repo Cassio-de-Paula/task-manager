@@ -35,6 +35,9 @@ export default function SearchResults () {
         setTaskListsMessage('')
        } else if (taskResults.length > 0) {
         setTasksMessage('')
+       } else {
+        setTaskListsMessage('Sem Resultados para a pesquisa')
+        setTasksMessage('Sem Resultados para a pesquisa')
        }
     }
 

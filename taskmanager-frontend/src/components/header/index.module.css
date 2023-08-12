@@ -30,6 +30,12 @@
     background-color: transparent;
 }
 
+.userProfileContainer {
+    display: flex;
+    height: fit-content;
+    margin-right: 20px;
+}
+
 .userProfile {
     width: max-content;
     height: max-content;
@@ -75,6 +81,23 @@ a:link {
     }
 }
 
+.iconContainer {
+    position: absolute;
+}
+
+.notificationSignUser, .notificationSign {
+    width: 24px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #9ad0ff;
+    text-align: center;
+    padding: 2px;
+}
+
+.notificationSignUser {
+    position: absolute;
+}
+
 .text {
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
@@ -96,7 +119,7 @@ a:link {
     width: 80px;
     border-radius: 50%;
     padding-top: 16px;
-    margin-right: 10px;
+    position: relative;
 }
 
 .notifications {
@@ -112,4 +135,5 @@ a:link {
     margin: 5px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }

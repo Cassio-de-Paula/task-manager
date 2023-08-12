@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react'
 import styles from './index.module.css'
 import taskService from '../../services/taskService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faBell, faCheck, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { dateFormat, tasksHook } from '../../../hooks/hooks'
 import { Link } from 'react-router-dom'
 import taskListService from '../../services/taskListService'
-import NotificationSign from '../notificationSign'
 
 
 export function TaskListsContainer (props) {
@@ -142,12 +141,16 @@ export function TasksContainer (props) {
             {
               tasks.map((task) => (
                 <>
-                {
-                    taskIds.includes(task.id) ? (<NotificationSign/>) : (<></>)
-                }
                 <div className={task.done ? styles.done : styles.taskContainer} key={task.id}>
                     <span className={styles.taskTitle}>
                         <p className={task.done ? styles.titleDone : styles.title}>{task.name}</p>
+                        {
+                            taskIds.includes(task.id) ? ( 
+                            <div className={styles.notificationSign}>
+                                <FontAwesomeIcon icon={faBell} color='#ffffff'/>
+                            </div>
+                            ) : (<></>)
+                        }
                     </span>
                         <p className={styles.taskDate}>{task.deadline ? dateFormat(task.deadline) : null}</p>
                         <p className={styles.taskUrgency}>{task.urgency ? `Aviso para ${task.urgency} dias antes` : null}</p>

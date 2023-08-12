@@ -39,6 +39,16 @@
     gap: 8px;
 }
 
+.notificationSign {
+    width: 24px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #9ad0ff;
+    text-align: center;
+    padding: 2px;
+    justify-self: right;
+}
+
 .done {
     border: 2px solid green;
     background-color: rgba(255, 255, 255, 0.7);
@@ -46,7 +56,6 @@
 
 .taskTitle {
     display: flex;
-    flex-direction: row-reverse;
     width: 100%;
     justify-content: center;
 }
@@ -80,6 +89,7 @@
     font-weight: bold;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
+    margin-right: 10px;
     &:hover {
         scale: 1.1;
         cursor: pointer;
